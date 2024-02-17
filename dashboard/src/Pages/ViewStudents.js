@@ -42,8 +42,7 @@ function ViewStudents() {
             [name]: value
         }));
     }
-
-
+//try
 
     return ( 
     <>
@@ -96,9 +95,12 @@ function ViewStudents() {
         <TextField variant = "outlined" label = "Course"name = "Course" value = { editedStudent && editedStudent.Course }onChange = { handleStudentChange }/>
          <div style = {{ marginBottom: '16px' } }/> 
          <TextField variant = "outlined"label = "Year"name = "Year"value = { editedStudent && editedStudent.Year }onChange = { handleStudentChange }/>  
-         <div style = {{ marginBottom: '16px' } }/> 
-         <Button variant = "contained"onClick = { handleCloseModal }sx = {
-            { mt: 2, display: 'block', margin: '0 auto', marginLeft: '0' } } > Close </Button> 
+         <div style = {{ marginBottom: '16px' } }/>
+
+         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%',}}>
+            <Button variant="contained" onClick={""} sx={{ mt: 2, width: '48%' }}>Save</Button>
+            <Button variant="contained" onClick={handleCloseModal} sx={{ mt: 2, width: '48%' }} >Close</Button>
+            </Box>
             </Box> 
         </Modal> 
         </>
