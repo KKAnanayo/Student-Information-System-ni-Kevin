@@ -45,37 +45,6 @@ function ViewStudents() {
 //try
 // Function to save edited student data
 function handleSaveChanges() {
-    axios.put(`http://localhost:1337/editStudent`, editedStudent)
-      .then(response => {
-        console.log("Student data updated successfully!");
-        // Update the students array with the edited data
-        const updatedStudents = students.map(student => {
-          if (student.ID === editedStudent.ID) {
-            return editedStudent;
-          } else {
-            return student;
-          }
-        });
-        setStudents(updatedStudents); // Update the state with the new student data
-        handleCloseModal(); // Close the modal after saving changes
-      })
-      .catch(error => {
-        console.error("Error updating student data:", error);
-        // Handle error, show error message to the user
-      });
-
-  // Function to update edited student details
-  function handleStudentChange(event) {
-    const { name, value } = event.target;
-    setEditedStudent(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-
-  }
-
-// Function to save edited student data
-function handleSaveChanges() {
   axios.put(`http://localhost:1337/editStudent`, editedStudent)
     .then(response => {
       console.log("Student data updated successfully!");
@@ -156,6 +125,4 @@ function handleSaveChanges() {
         </>
     );
               }
-}
-
 export default ViewStudents;
