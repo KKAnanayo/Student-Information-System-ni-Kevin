@@ -130,8 +130,32 @@ function handleSaveChanges() {
           </Table>
         </TableContainer>
       </div>
-    </>
-  );
+        <Modal open = { modalOpen }onClose = { handleCloseModal } >
+        <Box sx = {{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 } } >
+        <Typography variant = "h6"component = "h2"fontWeight = "bold"align = "left" > Student Information </Typography> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant="outlined" label="ID Number" name="ID" value={editedStudent && editedStudent.ID}  enabled={false} />
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined"label = "First Name"name = "First"value = { editedStudent && editedStudent.First }onChange = { handleStudentChange }/> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined"label = "Last Name"name = "Last"value = { editedStudent && editedStudent.Last }onChange = { handleStudentChange }/> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined"label = "Middle Name"name = "Middle"value = { editedStudent && editedStudent.Middle }onChange = { handleStudentChange }/> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined" label = "Course"name = "Course" value = { editedStudent && editedStudent.Course }onChange = { handleStudentChange }/>
+         <div style = {{ marginBottom: '16px' } }/> 
+         <TextField variant = "outlined"label = "Year"name = "Year"value = { editedStudent && editedStudent.Year }onChange = { handleStudentChange }/>  
+         <div style = {{ marginBottom: '16px' } }/>
+
+         <Box sx={{ display: 'inline-flex',   gap: '8px'}}>
+           <Button variant="contained"  onClick={handleSaveChanges}>Save</Button>
+           <Button variant="contained" onClick={handleCloseModal}>Close</Button>
+        </Box>
+            </Box> 
+        </Modal> 
+        </>
+    );
+              }
 }
-}
+
 export default ViewStudents;
