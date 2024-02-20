@@ -29,7 +29,6 @@ function ViewStudents() {
     setModalOpen(true);
   };
 
-<<<<<<< HEAD
   function handleCloseModal (){
     setModalOpen(false);
     setEditedStudent(null); 
@@ -125,7 +124,7 @@ function handleSaveChanges() {
       </Modal>
     </>
   );
-=======
+
     function handleCloseModal() {
         setModalOpen(false);
         setEditedStudent(null);
@@ -202,7 +201,6 @@ function handleSaveChanges() {
         </Modal> 
         </>
     );
->>>>>>> 74541ce2ac12261f9a3c0dc6b65b011d3535265e
 }
 
 export default ViewStudents;
