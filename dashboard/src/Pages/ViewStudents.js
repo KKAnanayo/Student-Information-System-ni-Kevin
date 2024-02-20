@@ -43,6 +43,27 @@ function ViewStudents() {
         }));
     }
 //try
+// Function to save edited student data
+function handleSaveChanges() {
+    axios.put(`http://localhost:1337/editStudent`, editedStudent)
+      .then(response => {
+        console.log("Student data updated successfully!");
+        // Update the students array with the edited data
+        const updatedStudents = students.map(student => {
+          if (student.ID === editedStudent.ID) {
+            return editedStudent;
+          } else {
+            return student;
+          }
+        });
+        setStudents(updatedStudents); // Update the state with the new student data
+        handleCloseModal(); // Close the modal after saving changes
+      })
+      .catch(error => {
+        console.error("Error updating student data:", error);
+        // Handle error, show error message to the user
+      });
+  }
 
     return ( 
     <>
@@ -84,7 +105,7 @@ function ViewStudents() {
         <Box sx = {{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 } } >
         <Typography variant = "h6"component = "h2"fontWeight = "bold"align = "left" > Student Information </Typography> 
         <div style = {{ marginBottom: '16px' } }/> 
-        <TextField variant = "outlined"label = "ID Number"name = "ID"value = { editedStudent && editedStudent.ID }onChange = { handleStudentChange }/> 
+        <TextField variant="outlined" label="ID Number" name="ID" value={editedStudent && editedStudent.ID}  enabled={false} />
         <div style = {{ marginBottom: '16px' } }/> 
         <TextField variant = "outlined"label = "First Name"name = "First"value = { editedStudent && editedStudent.First }onChange = { handleStudentChange }/> 
         <div style = {{ marginBottom: '16px' } }/> 
@@ -97,10 +118,10 @@ function ViewStudents() {
          <TextField variant = "outlined"label = "Year"name = "Year"value = { editedStudent && editedStudent.Year }onChange = { handleStudentChange }/>  
          <div style = {{ marginBottom: '16px' } }/>
 
-         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%',}}>
-            <Button variant="contained" onClick={""} sx={{ mt: 2, width: '48%' }}>Save</Button>
-            <Button variant="contained" onClick={handleCloseModal} sx={{ mt: 2, width: '48%' }} >Close</Button>
-            </Box>
+         <Box sx={{ display: 'inline-flex',   gap: '8px'}}>
+           <Button variant="contained"  onClick={handleSaveChanges}>Save</Button>
+           <Button variant="contained" onClick={handleCloseModal}>Close</Button>
+        </Box>
             </Box> 
         </Modal> 
         </>
