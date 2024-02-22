@@ -34,15 +34,15 @@ function ViewStudents() {
     setEditedStudent(null); 
   };
 
-  // Function to update edited student details
-  function handleStudentChange(event) {
-    const { name, value } = event.target;
-    setEditedStudent(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  }
-
+    // Function to update edited student details
+    function handleStudentChange(event) {
+        const { name, value } = event.target;
+        setEditedStudent(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    }
+//try
 // Function to save edited student data
 function handleSaveChanges() {
   axios.put(`http://localhost:1337/editStudent`, editedStudent)
@@ -62,6 +62,31 @@ function handleSaveChanges() {
     .catch(error => {
       console.error("Error updating student data:", error);
       // Handle error, show error message to the user
+    })
+    .finally(() => {
+      // This block will execute regardless of whether the request succeeded or failed
+      // You can use it to show the success message
+      alert("Student updated successfully!");
+    });
+}
+
+function handleDelete() {
+  axios.delete(`http://localhost:1337/deleteStudent/${editedStudent.ID}`)
+    .then(response => {
+      console.log("Student data deleted successfully!");
+      // Remove the deleted student from the students array
+      const updatedStudents = students.filter(student => student.ID !== editedStudent.ID);
+      setStudents(updatedStudents); // Update the state with the new student data
+      handleCloseModal(); // Close the modal after deleting the student
+    })
+    .catch(error => {
+      console.error("Error deleting student data:", error);
+      // Handle error, show error message to the user
+    })
+    .finally(() => {
+      // This block will execute regardless of whether the request succeeded or failed
+      // You can use it to show the success message
+      alert("Student deleted successfully!");
     });
 }
 
@@ -99,31 +124,32 @@ function handleSaveChanges() {
           </Table>
         </TableContainer>
       </div>
+        <Modal open = { modalOpen }onClose = { handleCloseModal } >
+        <Box sx = {{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 } } >
+        <Typography variant = "h6"component = "h2"fontWeight = "bold"align = "left" > Student Information </Typography> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant="outlined" label="ID Number" name="ID" value={editedStudent && editedStudent.ID}  enabled={false} />
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined"label = "First Name"name = "First"value = { editedStudent && editedStudent.First }onChange = { handleStudentChange }/> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined"label = "Last Name"name = "Last"value = { editedStudent && editedStudent.Last }onChange = { handleStudentChange }/> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined"label = "Middle Name"name = "Middle"value = { editedStudent && editedStudent.Middle }onChange = { handleStudentChange }/> 
+        <div style = {{ marginBottom: '16px' } }/> 
+        <TextField variant = "outlined" label = "Course"name = "Course" value = { editedStudent && editedStudent.Course }onChange = { handleStudentChange }/>
+         <div style = {{ marginBottom: '16px' } }/> 
+         <TextField variant = "outlined"label = "Year"name = "Year"value = { editedStudent && editedStudent.Year }onChange = { handleStudentChange }/>  
+         <div style = {{ marginBottom: '16px' } }/>
 
-      <Modal open={modalOpen} onClose={handleCloseModal}>
-        <Box sx={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4}}>
-          <Typography variant="h6" component="h2"  fontWeight="bold" align="left">Student Information</Typography>
-          <div style={{ marginBottom: '16px' }} />
-          <TextField variant="outlined" label="ID Number" name="ID" value={editedStudent && editedStudent.ID}  enabled={false} />
-          <div style={{ marginBottom: '16px' }} />
-          <TextField variant="outlined" label="First Name" name="First" value={editedStudent && editedStudent.First} onChange={handleStudentChange}  />
-          <div style={{ marginBottom: '16px' }} />
-          <TextField variant="outlined" label="Last Name" name="Last" value={editedStudent && editedStudent.Last} onChange={handleStudentChange}  />
-          <div style={{ marginBottom: '16px' }} />
-          <TextField variant="outlined" label="Middle Name" name="Middle" value={editedStudent && editedStudent.Middle} onChange={handleStudentChange}  />
-          <div style={{ marginBottom: '16px' }} />
-          <TextField variant="outlined" label="Course" name="Course" value={editedStudent && editedStudent.Course} onChange={handleStudentChange}  />
-          <div style={{ marginBottom: '16px' }} />
-          <TextField variant="outlined" label="Year" name="Year" value={editedStudent && editedStudent.Year} onChange={handleStudentChange}  /> 
-          <div style={{ marginBottom: '16px' }} />
-          <Box sx={{ display: 'inline-flex',   gap: '8px'}}>
+         <Box sx={{ display: 'inline-flex',   gap: '8px'}}>
            <Button variant="contained"  onClick={handleSaveChanges}>Save</Button>
            <Button variant="contained" onClick={handleCloseModal}>Close</Button>
+           <Button variant="contained" onClick={handleDelete}>Delete</Button>
         </Box>
-        </Box>
-      </Modal>
-    </>
-  );
-}
-
+            </Box> 
+        </Modal> 
+        </>
+    );
+              }
+ 
 export default ViewStudents;
