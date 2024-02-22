@@ -57,12 +57,6 @@ app.put("/editStudent", (req, res) => {
     }
 });
 
-const port = 1337;
-
-app.listen(port, () => {
-    console.log(`Server running on ${port}`);
-});
-
 app.delete('/deleteStudent/:id', async (req, res) => {
     const id = req.params.id;
     try {
@@ -86,3 +80,10 @@ app.delete('/deleteStudent/:id', async (req, res) => {
       res.status(500).send('Error deleting student.');
     }
   });
+
+const port = 1337;
+
+app.listen(port, () => {
+    console.log(`Server running on ${port}`);
+});
+
