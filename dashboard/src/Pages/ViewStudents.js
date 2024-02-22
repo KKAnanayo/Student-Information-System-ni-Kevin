@@ -65,6 +65,21 @@ function handleSaveChanges() {
     });
 }
 
+function handleDelete() {
+  axios.delete(`http://localhost:1337/deleteStudent/${editedStudent.ID}`)
+    .then(response => {
+      console.log("Student data deleted successfully!");
+      // Remove the deleted student from the students array
+      const updatedStudents = students.filter(student => student.ID !== editedStudent.ID);
+      setStudents(updatedStudents); // Update the state with the new student data
+      handleCloseModal(); // Close the modal after deleting the student
+    })
+    .catch(error => {
+      console.error("Error deleting student data:", error);
+      // Handle error, show error message to the user
+    });
+}
+
   return (
     <>
       <div className="view-container">
@@ -119,6 +134,7 @@ function handleSaveChanges() {
          <Box sx={{ display: 'inline-flex',   gap: '8px'}}>
            <Button variant="contained"  onClick={handleSaveChanges}>Save</Button>
            <Button variant="contained" onClick={handleCloseModal}>Close</Button>
+           <Button variant="contained" onClick={handleDelete}>Delete</Button>
         </Box>
             </Box> 
         </Modal> 

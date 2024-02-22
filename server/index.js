@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const fs = require("fs");
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -61,3 +62,27 @@ const port = 1337;
 app.listen(port, () => {
     console.log(`Server running on ${port}`);
 });
+
+app.delete('/deleteStudent/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+      // Read the students.json file
+      const studentsData = fs.readFileSync('students.json', 'utf-8');
+      // Parse the JSON data
+      const students = JSON.parse(studentsData);
+      // Find the index of the student with the given ID in the students array
+      const index = students.findIndex(student => student.ID === id);
+      if (index !== -1) {
+        // Remove the student from the students array
+        students.splice(index, 1);
+        // Update the students.json file with the updated students array
+        fs.writeFileSync('students.json', JSON.stringify(students, null, 2));
+        res.send(`Student with ID ${id} deleted successfully.`);
+      } else {
+        res.status(404).send(`Student with ID ${id} not found.`);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Error deleting student.');
+    }
+  });
