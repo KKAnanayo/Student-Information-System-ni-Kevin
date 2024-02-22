@@ -62,6 +62,11 @@ function handleSaveChanges() {
     .catch(error => {
       console.error("Error updating student data:", error);
       // Handle error, show error message to the user
+    })
+    .finally(() => {
+      // This block will execute regardless of whether the request succeeded or failed
+      // You can use it to show the success message
+      alert("Student updated successfully!");
     });
 }
 
@@ -77,6 +82,11 @@ function handleDelete() {
     .catch(error => {
       console.error("Error deleting student data:", error);
       // Handle error, show error message to the user
+    })
+    .finally(() => {
+      // This block will execute regardless of whether the request succeeded or failed
+      // You can use it to show the success message
+      alert("Student deleted successfully!");
     });
 }
 
@@ -141,5 +151,5 @@ function handleDelete() {
         </>
     );
               }
-
+ 
 export default ViewStudents;

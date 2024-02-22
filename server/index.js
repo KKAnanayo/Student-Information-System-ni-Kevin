@@ -47,6 +47,7 @@ app.put("/editStudent", (req, res) => {
         if (index !== -1) {
             existingData[index] = updateStudentData;
             fs.writeFileSync("students.json", JSON.stringify(existingData, null, 2));
+            
             res.json({ success: true, message: "Student updated successfully!" });
         } else {
             res.status(404).json({ error: "Student not found" });

@@ -6,5 +6,13 @@
     "Middle": "Vallejo",
     "Course": "BSIT",
     "Year": "3"
+  },
+  {
+    "ID": "23123",
+    "First": "Ellis",
+    "Last": "Go",
+    "Middle": "Chinchong",
+    "Course": "BSCE",
+    "Year": "2"
   }
 ]
