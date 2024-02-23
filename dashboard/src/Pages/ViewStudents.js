@@ -189,7 +189,7 @@ function handleDelete() {
         label="ID Number" 
         name="ID" 
         value={editedStudent && editedStudent.ID}  
-        enabled={false} />
+        disabled />
         <div style = {{ marginBottom: '16px' } }/> 
 
         <TextField variant = "outlined"
