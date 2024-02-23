@@ -1,18 +1,8 @@
-[
-  {
+[{
     "ID": "324234",
     "First": "KEVIN",
     "Last": "Ananayo",
     "Middle": "Vallejo",
     "Course": "BSIT",
     "Year": "3"
-  },
-  {
-    "ID": "34356432",
-    "First": "Ellis",
-    "Last": "Go",
-    "Middle": "",
-    "Course": "BSIT",
-    "Year": "1"
-  }
-]
+}]
