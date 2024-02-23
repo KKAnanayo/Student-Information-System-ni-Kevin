@@ -186,6 +186,7 @@ function handleDelete() {
          <TextField variant = "outlined"label = "Year"name = "Year" type="number"  value = { editedStudent && editedStudent.Year }onChange = { handleStudentChange } />  
          <div style = {{ marginBottom: '16px' } }/>
 
+          
          <Box sx={{ display: 'inline-flex',   gap: '8px'}}>
            <Button variant="contained"  onClick={handleSaveChanges}>Save</Button>
            <Button variant="contained" onClick={handleCloseModal}>Close</Button>
@@ -196,5 +197,5 @@ function handleDelete() {
         </>
     );
               }
- 
+ //asdasda
 export default ViewStudents;
