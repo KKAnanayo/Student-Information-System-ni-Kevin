@@ -1,8 +1,10 @@
-[{
+[
+  {
     "ID": "324234",
-    "First": "KEVIN",
+    "First": "Kevin",
     "Last": "Ananayo",
     "Middle": "Vallejo",
     "Course": "BSIT",
-    "Year": "3"
-}]
+    "Year": "2"
+  }
+]

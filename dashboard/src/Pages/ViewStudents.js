@@ -241,7 +241,6 @@ function handleDelete() {
            <Button variant="contained" 
            onClick={handleDelete}>
             Delete</Button>
-            
         </Box>
             </Box> 
         </Modal> 

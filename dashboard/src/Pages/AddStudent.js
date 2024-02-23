@@ -108,7 +108,6 @@ function handleMiddleNameChange(event) {
             value={ID}
             onChange={handleIDChange} // Apply the validation function here
             sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-            type="number"
           />
 
         <TextField 
