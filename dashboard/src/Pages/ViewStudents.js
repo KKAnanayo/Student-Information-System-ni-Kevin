@@ -12,6 +12,16 @@ function ViewStudents() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [editedStudent, setEditedStudent] = useState(null); 
+
+  // State to manage error messages
+  const [errorMessages, setErrorMessages] = useState({
+    Year: "",
+    First: "",
+    Last: "",
+    Middle: "",
+    Course: ""
+  });
+
   useEffect(() => {
    //ajsdansdajnd
     axios.get(`http://localhost:1337/viewstudents`)
@@ -36,12 +46,47 @@ function ViewStudents() {
 
     // Function to update edited student details
     function handleStudentChange(event) {
-        const { name, value } = event.target;
-        setEditedStudent(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+      const { name, value } = event.target;
+
+  // Reset the error message for the current field
+  setErrorMessages(prevState => ({
+    ...prevState,
+    [name]: ""
+  }));
+
+  // Validate the entered value based on the field name
+  if (name === "Year") {
+    if (value >= 1 && value <= 5) {
+      setEditedStudent(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    } else {
+      setErrorMessages(prevState => ({
+        ...prevState,
+        [name]: "Year must be between 1 and 5."
+      }));
     }
+  } else if (name === "First" || name === "Last" || name === "Middle" || name === "Course") {
+    // Modify the regular expression pattern to allow spaces, underscores, and dots
+    if (/^[A-Za-z\s_.-]+$/.test(value) || value === '') {
+      setEditedStudent(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    } else {
+      setErrorMessages(prevState => ({
+        ...prevState,
+        [name]: "Only letters, spaces, underscores, and dots are allowed."
+      }));
+    }
+  } else {
+    setEditedStudent(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  }
+}
 //try
 // Function to save edited student data
 function handleSaveChanges() {
@@ -138,7 +183,7 @@ function handleDelete() {
         <div style = {{ marginBottom: '16px' } }/> 
         <TextField variant = "outlined" label = "Course"name = "Course" value = { editedStudent && editedStudent.Course }onChange = { handleStudentChange }/>
          <div style = {{ marginBottom: '16px' } }/> 
-         <TextField variant = "outlined"label = "Year"name = "Year"value = { editedStudent && editedStudent.Year }onChange = { handleStudentChange }/>  
+         <TextField variant = "outlined"label = "Year"name = "Year" type="number"  value = { editedStudent && editedStudent.Year }onChange = { handleStudentChange } />  
          <div style = {{ marginBottom: '16px' } }/>
 
          <Box sx={{ display: 'inline-flex',   gap: '8px'}}>
