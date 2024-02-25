@@ -9,9 +9,14 @@ function AddStudent() {
   const [Middle, setMiddle] = useState("");
   const [Course, setCourse] = useState("");
   const [Year, setYear] = useState("1");
-  
+  const [error, setError] = useState("");
 
   async function handleAddStudent() { 
+    if (!First || !Last || !ID || !Course) {
+      setError("Please fill out all Box.");
+      return;
+    }
+
     const studentData = {
       ID,
       First,
@@ -39,6 +44,7 @@ function AddStudent() {
         setMiddle("");
         setCourse("");
         setYear("");
+        setError("");
         alert(result.message);
       } else {
         alert("Failed to add student. Please try again.")
@@ -108,6 +114,8 @@ function handleMiddleNameChange(event) {
             value={ID}
             onChange={handleIDChange} // Apply the validation function here
             sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
+            error={error && !ID} // Add error styling when ID is empty
+            helperText={error && !ID ? error : ""}
           />
 
         <TextField 
@@ -116,7 +124,10 @@ function handleMiddleNameChange(event) {
           variant="outlined" 
           value={First} 
           onChange={handleFirstNameChange}
-          sx={{ width: '20vw', mb: 5, fontSize: '24px' }} />
+          sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
+          error={error && !First} // Add error styling when First is empty
+          helperText={error && !First ? error : ""}
+        />
 
 
         <TextField 
@@ -125,7 +136,10 @@ function handleMiddleNameChange(event) {
           variant="outlined" 
           value={Last} 
           onChange={handleLastNameChange}
-          sx={{ width: '20vw', mb: 5, fontSize: '24px' }} />
+          sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
+          error={error && !Last} // Add error styling when Last is empty
+          helperText={error && !Last ? error : ""}
+        />
 
         <TextField 
           id="outlined-basic" 
@@ -133,7 +147,8 @@ function handleMiddleNameChange(event) {
           variant="outlined" 
           value={Middle} 
           onChange={handleMiddleNameChange}
-          sx={{ width: '20vw', mb: 5, fontSize: '24px' }} />
+          sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
+        />
 
         <TextField 
         id="outlined-basic" 
@@ -141,7 +156,10 @@ function handleMiddleNameChange(event) {
         variant="outlined" 
         value={Course} 
         onChange={handleCourseChange}
-        sx={{ width: '20vw', mb: 5, fontSize: '24px' }} />
+        sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
+        error={error && !Course} // Add error styling when Course is empty
+        helperText={error && !Course ? error : ""}
+        />
 
             <TextField
             id="outlined-basic"

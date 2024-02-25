@@ -90,6 +90,20 @@ function ViewStudents() {
 //try
 // Function to save edited student data
 function handleSaveChanges() {
+  const { First, Last, Course } = editedStudent;
+
+  // Check if any of the required fields are empty
+  if (!First || !Last || !Course) {
+    // Set error message for each empty field
+    setErrorMessages({
+      ...errorMessages,
+      First: !First ? "First Name is required" : "",
+      Last: !Last ? "Last Name is required" : "",
+      Course: !Course ? "Course is required" : "",
+    });
+    return; // Prevent the save operation
+  }
+
   axios.put(`http://localhost:1337/editStudent`, editedStudent)
     .then(response => {
       console.log("Student data updated successfully!");
@@ -196,14 +210,22 @@ function handleDelete() {
         label = "First Name"
         name = "First"
         value = { editedStudent && editedStudent.First }
-        onChange = { handleStudentChange }/> 
+        onChange = { handleStudentChange }
+        required // This makes the field required
+        error={errorMessages.First !== ""} // This checks if there's an error message for First
+        helperText={errorMessages.First} // This displays the error message for First
+        /> 
         <div style = {{ marginBottom: '16px' } }/> 
 
         <TextField variant = "outlined"
         label = "Last Name"
         name = "Last"
         value = { editedStudent && editedStudent.Last }
-        onChange = { handleStudentChange }/> 
+        onChange = { handleStudentChange }
+        required // This makes the field required
+        error={errorMessages.Last !== ""} // This checks if there's an error message for Last
+        helperText={errorMessages.Last} // This displays the error message for Last
+        /> 
         <div style = {{ marginBottom: '16px' } }/> 
 
         <TextField variant = "outlined"
@@ -217,7 +239,11 @@ function handleDelete() {
         label = "Course"
         name = "Course" 
         value = { editedStudent && editedStudent.Course }
-        onChange = { handleStudentChange }/>
+        onChange = { handleStudentChange }
+        required // This makes the field required
+        error={errorMessages.Course !== ""} // This checks if there's an error message for Course
+        helperText={errorMessages.Course} // This displays the error message for Course
+        />
          <div style = {{ marginBottom: '16px' } }/> 
 
          <TextField variant = "outlined"
