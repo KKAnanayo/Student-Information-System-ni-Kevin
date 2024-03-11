@@ -1,34 +1,33 @@
-[
-  {
-    "ID": "324234",
-    "First": "Kevin",
-    "Last": "Ananayo",
-    "Middle": "Vallejo",
-    "Course": "BSIT",
-    "Year": "2"
-  },
-  {
-    "ID": "45364345",
-    "First": "Ryzter",
-    "Last": "Celestino",
-    "Middle": "Jhon",
-    "Course": "BSIT",
-    "Year": "1"
-  },
-  {
-    "ID": "12342435",
-    "First": "sadfa",
-    "Last": "asd",
-    "Middle": "asd",
-    "Course": "SDF",
-    "Year": "1"
-  },
-  {
-    "ID": "1231312",
-    "First": "ahtjy",
-    "Last": "thrty",
-    "Middle": "",
-    "Course": "asfsdf",
-    "Year": "1"
-  }
+[{
+        "ID": "324234",
+        "First": "Kevin",
+        "Last": "Ananayo",
+        "Middle": "Vallejo",
+        "Course": "BSIT",
+        "Year": "2"
+    },
+    {
+        "ID": "45364345",
+        "First": "Ryzter",
+        "Last": "Celestino",
+        "Middle": "Jhon",
+        "Course": "BSIT",
+        "Year": "1"
+    },
+    {
+        "ID": "12342435",
+        "First": "sadfa",
+        "Last": "asd",
+        "Middle": "asd",
+        "Course": "SDF",
+        "Year": "1"
+    },
+    {
+        "ID": "1231312",
+        "First": "ahtjy",
+        "Last": "thrty",
+        "Middle": "",
+        "Course": "asfsdf",
+        "Year": "1"
+    }
 ]
