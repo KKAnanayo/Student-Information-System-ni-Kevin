@@ -170,7 +170,6 @@ function handleMiddleNameChange(event) {
             sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
             type="number"
           />
-
           <Button
             variant="contained"
             type="submit"

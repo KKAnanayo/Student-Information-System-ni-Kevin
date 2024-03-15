@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const fs = require("fs");
+const mongoose = require('mongoose');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -81,7 +82,56 @@ app.delete('/deleteStudent/:id', async(req, res) => {
         res.status(500).send('Error deleting student.');
     }
 });
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/mydatabase', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+    console.log('Connected to MongoDB');
+});
 
+// Define the user schema
+const userSchema = new mongoose.Schema({
+    First: String,
+    Last: String,
+    Middle: String,
+    Email: String,
+    Password: String
+});
+
+// Create a mongoose model based on the userSchema
+const User = mongoose.model('User', userSchema);
+
+// Endpoint to add a user
+app.post("/addUser", async(req, res) => {
+    const userData = req.body;
+
+    try {
+        // Create a new user document using the User model and the received data
+        const user = new User(userData);
+        // Save the user document to the database
+        await user.save();
+        res.json({ success: true, message: "User added successfully!" });
+    } catch (error) {
+        console.error("Error adding user:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+// Endpoint to view all users
+app.get("/viewUsers", async(req, res) => {
+    try {
+        // Retrieve all user documents from the database
+        const users = await User.find();
+        res.json(users);
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 const port = 1337;
 
 app.listen(port, () => {
