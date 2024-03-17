@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const mongoose = require('mongoose');
 
+
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -132,6 +134,27 @@ app.get("/viewUsers", async(req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
+// Endpoint to edit a user by email
+app.put("/editUser/:email", async(req, res) => {
+    const userEmail = req.params.email;
+    const updatedUserData = req.body;
+
+    try {
+        // Find the user by email and update the user data
+        const updatedUser = await User.findOneAndUpdate({ Email: userEmail }, updatedUserData, { new: true });
+
+        if (updatedUser) {
+            res.json({ success: true, message: "User updated successfully", user: updatedUser });
+        } else {
+            res.status(404).json({ success: false, message: "User not found" });
+        }
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+});
+
 const port = 1337;
 
 app.listen(port, () => {
