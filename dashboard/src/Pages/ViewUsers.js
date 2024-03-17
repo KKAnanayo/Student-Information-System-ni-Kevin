@@ -56,6 +56,7 @@ function ViewUsers() {
         setModalOpen(false);
         setEditModalOpen(false);
         setEditedUser(null);
+        setEmailUniqueError(false);
     };
 
     function handleAddUser () {
@@ -116,6 +117,8 @@ function ViewUsers() {
             setEditPassword("");
             setModalOpen(false); 
             fetchData();
+
+            setEmailUniqueError(false);
         })
         .catch(error => {
             console.error("Error adding user:", error);
