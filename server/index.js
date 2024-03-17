@@ -97,11 +97,11 @@ db.once('open', () => {
 
 // Define the user schema
 const userSchema = new mongoose.Schema({
-    First: String,
-    Last: String,
-    Middle: String,
-    Email: String,
-    Password: String
+    First: { type: String, required: true },
+    Last: { type: String, required: true },
+    Middle: { type: String, required: true },
+    Email: { type: String, required: true, unique: true },
+    Password: { type: String, required: true }
 });
 
 // Create a mongoose model based on the userSchema

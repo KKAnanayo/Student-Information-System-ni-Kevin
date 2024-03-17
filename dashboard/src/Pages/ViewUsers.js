@@ -17,6 +17,13 @@ function ViewUsers() {
     const [editEmail, setEditEmail] = useState("");
     const [editPassword, setEditPassword] = useState("");
 
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
+    const [middleNameError, setMiddleNameError] = useState(false);
+    const [emailRequiredError, setEmailRequiredError] = useState(false);
+    const [emailUniqueError, setEmailUniqueError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -52,6 +59,43 @@ function ViewUsers() {
     };
 
     function handleAddUser () {
+        // Validate First Name field
+        if (!editFirst) {
+            setFirstNameError(true);
+        } else {
+            setFirstNameError(false);
+        }
+
+        // Validate Last Name field
+        if (!editLast) {
+            setLastNameError(true);
+        } else {
+            setLastNameError(false);
+        }
+
+        // Validate Middle Name field
+        if (!editMiddle) {
+            setMiddleNameError(true);
+        } else {
+            setMiddleNameError(false);
+        }
+
+        // Validate Email field
+        if (!editEmail) {
+            setEmailRequiredError(true);
+            return;
+        } else {
+            setEmailRequiredError(false);
+        }
+
+        // Validate Password field
+        if (!editPassword) {
+            setPasswordError(true);
+            return;
+        } else {
+            setPasswordError(false);
+        }
+
         const userData = {
             First: editFirst,
             Last: editLast,
@@ -61,18 +105,24 @@ function ViewUsers() {
         };
 
         axios.post("http://localhost:1337/addUser", userData)
-            .then(response => {
-                console.log("User added successfully:", response.data);
-                setEditFirst("");
-                setEditLast("");
-                setEditMiddle("");
-                setEditEmail("");
-                setEditPassword("");
-                setModalOpen(false); 
-                fetchData();
-            })
-            .catch(error => {
-                console.error("Error adding user:", error);
+        .then(response => {
+            if (!response.data.isUnique) {
+                setEmailUniqueError(true); // Set unique error to true if email is not unique
+                return;
+            }
+            setEmailUniqueError(false); // Reset unique error if successful
+            console.log("User added successfully:", response.data);
+            setEditFirst("");
+            setEditLast("");
+            setEditMiddle("");
+            setEditEmail("");
+            setEditPassword("");
+            setModalOpen(false); 
+            fetchData();
+        })
+        .catch(error => {
+            console.error("Error adding user:", error);
+            setEmailUniqueError(true);
             });
     }
 
@@ -103,17 +153,52 @@ function ViewUsers() {
             <h6>MUI Table</h6>
             <Modal open={modalOpen} onClose={handleCloseModal}>
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
-                <Typography variant="h6" component="h2" fontWeight="bold" align="left">Add User Information</Typography>
+                <Typography variant="h6" component="h2" fontWeight="bold" align="left">Add Userr Information</Typography>
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="Email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} />
+                    <TextField variant="outlined" 
+                    label="Email" 
+                    value={editEmail} 
+                    onChange={(e) => setEditEmail(e.target.value)} 
+                    error={emailRequiredError || emailUniqueError}
+                    helperText={
+                        (emailRequiredError && "Email is required") ||
+                        (emailUniqueError && "Email must be unique")
+                    }
+                    />
+                    <div style={{ marginBottom: '16px' }} 
+                    />
+                    <TextField variant="outlined" 
+                    label="First Name" 
+                    value={editFirst} onChange={(e) => 
+                    setEditFirst(e.target.value)} 
+                    error={firstNameError}
+                    helperText={firstNameError && "First Name is required"}
+                    />
+                    <div style={{ marginBottom: '16px' }}/>
+                    <TextField variant="outlined" 
+                    label="Last Name" 
+                    value={editLast} 
+                    onChange={(e) => setEditLast(e.target.value)} 
+                    error={lastNameError}
+                    helperText={lastNameError && "Last Name is required"}
+                    />
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="First Name" value={editFirst} onChange={(e) => setEditFirst(e.target.value)} />
+                    <TextField variant="outlined" 
+                    label="Middle Name" 
+                    value={editMiddle} 
+                    onChange={(e) => setEditMiddle(e.target.value)} 
+                    error={middleNameError}
+                    helperText={middleNameError && "Middle Name is required"}
+                    />
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="Last Name" value={editLast} onChange={(e) => setEditLast(e.target.value)} />
-                    <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="Middle Name" value={editMiddle} onChange={(e) => setEditMiddle(e.target.value)} />
-                    <div style={{ marginBottom: '16px' }} />
-                    <TextField type="password" variant="outlined" label="Password" value={editPassword} onChange={(e) => setEditPassword(e.target.value)} />
+                    <TextField type="password" 
+                    variant="outlined" 
+                    label="Password" 
+                    value={editPassword} 
+                    onChange={(e) => setEditPassword(e.target.value)} 
+                    error={passwordError}
+                    helperText={passwordError && "Password is required"}
+                    />
                     <div style={{ marginBottom: '16px' }} />
 
                     <Button variant="contained" onClick={handleAddUser}>Add User</Button>
@@ -152,15 +237,37 @@ function ViewUsers() {
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
                     <Typography variant="h6" component="h2" fontWeight="bold" align="left">User Information</Typography>
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="Email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} disabled/>
+                    <TextField variant="outlined" 
+                    label="Email" 
+                    value={editEmail} 
+                    onChange={(e) => setEditEmail(e.target.value)} 
+                    disabled
+                    />
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="First Name" value={editFirst} onChange={(e) => setEditFirst(e.target.value)} />
+                    <TextField variant="outlined" 
+                    label="First Name" 
+                    value={editFirst} 
+                    onChange={(e) => setEditFirst(e.target.value)} 
+
+                    />
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="Last Name" value={editLast} onChange={(e) => setEditLast(e.target.value)} />
+                    <TextField variant="outlined" 
+                    label="Last Name" 
+                    value={editLast} 
+                    onChange={(e) => setEditLast(e.target.value)} 
+                    />
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" label="Middle Name" value={editMiddle} onChange={(e) => setEditMiddle(e.target.value)} />
+                    <TextField variant="outlined" 
+                    label="Middle Name" 
+                    value={editMiddle} onChange={(e) => setEditMiddle(e.target.value)} 
+                    />
                     <div style={{ marginBottom: '16px' }} />
-                    <TextField type="password" variant="outlined" label="Password" value={editPassword} onChange={(e) => setEditPassword(e.target.value)} />
+                    <TextField type="password" 
+                    variant="outlined" 
+                    label="Password" 
+                    value={editPassword} 
+                    onChange={(e) => setEditPassword(e.target.value)} 
+                    />
                     <div style={{ marginBottom: '16px' }} />
                     
 
