@@ -44,17 +44,14 @@ function ViewStudents() {
     setEditedStudent(null); 
   };
 
-    // Function to update edited student details
     function handleStudentChange(event) {
       const { name, value } = event.target;
 
-  // Reset the error message for the current field
   setErrorMessages(prevState => ({
     ...prevState,
     [name]: ""
   }));
 
-  // Validate the entered value based on the field name
   if (name === "Year") {
     if (value >= 1 && value <= 5) {
       setEditedStudent(prevState => ({
@@ -68,7 +65,6 @@ function ViewStudents() {
       }));
     }
   } else if (name === "First" || name === "Last" || name === "Middle" || name === "Course") {
-    // Modify the regular expression pattern to allow spaces, underscores, and dots
     if (/^[A-Za-z\s_.-]+$/.test(value) || value === '') {
       setEditedStudent(prevState => ({
         ...prevState,
@@ -88,26 +84,22 @@ function ViewStudents() {
   }
 }
 //try
-// Function to save edited student data
 function handleSaveChanges() {
   const { First, Last, Course } = editedStudent;
 
-  // Check if any of the required fields are empty
   if (!First || !Last || !Course) {
-    // Set error message for each empty field
     setErrorMessages({
       ...errorMessages,
       First: !First ? "First Name is required" : "",
       Last: !Last ? "Last Name is required" : "",
       Course: !Course ? "Course is required" : "",
     });
-    return; // Prevent the save operation
+    return; 
   }
 
   axios.put(`http://localhost:1337/editStudent`, editedStudent)
     .then(response => {
       console.log("Student data updated successfully!");
-      // Update the students array with the edited data
       const updatedStudents = students.map(student => {
         if (student.ID === editedStudent.ID) {
           return editedStudent;
@@ -115,16 +107,14 @@ function handleSaveChanges() {
           return student;
         }
       });
-      setStudents(updatedStudents); // Update the state with the new student data
-      handleCloseModal(); // Close the modal after saving changes
+      setStudents(updatedStudents); 
+      handleCloseModal(); 
     })
     .catch(error => {
       console.error("Error updating student data:", error);
-      // Handle error, show error message to the user
     })
     .finally(() => {
-      // This block will execute regardless of whether the request succeeded or failed
-      // You can use it to show the success message
+      
       alert("Student updated successfully!");
     });
 }
@@ -133,18 +123,15 @@ function handleDelete() {
   axios.delete(`http://localhost:1337/deleteStudent/${editedStudent.ID}`)
     .then(response => {
       console.log("Student data deleted successfully!");
-      // Remove the deleted student from the students array
       const updatedStudents = students.filter(student => student.ID !== editedStudent.ID);
-      setStudents(updatedStudents); // Update the state with the new student data
-      handleCloseModal(); // Close the modal after deleting the student
+      setStudents(updatedStudents); 
+      handleCloseModal(); 
     })
     .catch(error => {
       console.error("Error deleting student data:", error);
-      // Handle error, show error message to the user
     })
     .finally(() => {
-      // This block will execute regardless of whether the request succeeded or failed
-      // You can use it to show the success message
+     
       alert("Student deleted successfully!");
     });
 }
@@ -211,9 +198,9 @@ function handleDelete() {
         name = "First"
         value = { editedStudent && editedStudent.First }
         onChange = { handleStudentChange }
-        required // This makes the field required
-        error={errorMessages.First !== ""} // This checks if there's an error message for First
-        helperText={errorMessages.First} // This displays the error message for First
+        required 
+        error={errorMessages.First !== ""} 
+        helperText={errorMessages.First} 
         /> 
         <div style = {{ marginBottom: '16px' } }/> 
 
@@ -222,9 +209,9 @@ function handleDelete() {
         name = "Last"
         value = { editedStudent && editedStudent.Last }
         onChange = { handleStudentChange }
-        required // This makes the field required
-        error={errorMessages.Last !== ""} // This checks if there's an error message for Last
-        helperText={errorMessages.Last} // This displays the error message for Last
+        required 
+        error={errorMessages.Last !== ""} 
+        helperText={errorMessages.Last} 
         /> 
         <div style = {{ marginBottom: '16px' } }/> 
 
@@ -240,9 +227,9 @@ function handleDelete() {
         name = "Course" 
         value = { editedStudent && editedStudent.Course }
         onChange = { handleStudentChange }
-        required // This makes the field required
-        error={errorMessages.Course !== ""} // This checks if there's an error message for Course
-        helperText={errorMessages.Course} // This displays the error message for Course
+        required 
+        error={errorMessages.Course !== ""} 
+        helperText={errorMessages.Course}
         />
          <div style = {{ marginBottom: '16px' } }/> 
 

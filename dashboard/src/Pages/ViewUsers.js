@@ -60,28 +60,26 @@ function ViewUsers() {
     };
 
     function handleAddUser () {
-        // Validate First Name field
+        
         if (!editFirst) {
             setFirstNameError(true);
         } else {
             setFirstNameError(false);
         }
 
-        // Validate Last Name field
+         
         if (!editLast) {
             setLastNameError(true);
         } else {
             setLastNameError(false);
         }
 
-        // Validate Middle Name field
         if (!editMiddle) {
             setMiddleNameError(true);
         } else {
             setMiddleNameError(false);
         }
 
-        // Validate Email field
         if (!editEmail) {
             setEmailRequiredError(true);
             return;
@@ -89,7 +87,6 @@ function ViewUsers() {
             setEmailRequiredError(false);
         }
 
-        // Validate Password field
         if (!editPassword) {
             setPasswordError(true);
             return;

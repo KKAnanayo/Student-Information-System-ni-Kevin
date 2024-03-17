@@ -65,16 +65,11 @@ app.put("/editStudent", (req, res) => {
 app.delete('/deleteStudent/:id', async(req, res) => {
     const id = req.params.id;
     try {
-        // Read the students.json file
         const studentsData = fs.readFileSync('students.json', 'utf-8');
-        // Parse the JSON data
         const students = JSON.parse(studentsData);
-        // Find the index of the student with the given ID in the students array
         const index = students.findIndex(student => student.ID === id);
         if (index !== -1) {
-            // Remove the student from the students array
             students.splice(index, 1);
-            // Update the students.json file with the updated students array
             fs.writeFileSync('students.json', JSON.stringify(students, null, 2));
             res.send(`Student with ID ${id} deleted successfully.`);
         } else {
@@ -85,7 +80,6 @@ app.delete('/deleteStudent/:id', async(req, res) => {
         res.status(500).send('Error deleting student.');
     }
 });
-// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/mydatabase', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -97,14 +91,11 @@ db.once('open', () => {
 });
 
 
-// Endpoint to add a user
 app.post("/addUser", async(req, res) => {
     const userData = req.body;
 
     try {
-        // Create a new user document using the User model and the received data
         const user = new User(userData);
-        // Save the user document to the database
         await user.save();
         res.json({ success: true, message: "User added successfully!" });
     } catch (error) {
@@ -113,10 +104,8 @@ app.post("/addUser", async(req, res) => {
     }
 });
 
-// Endpoint to view all users
 app.get("/viewUsers", async(req, res) => {
     try {
-        // Retrieve all user documents from the database
         const users = await User.find();
         res.json(users);
     } catch (error) {
@@ -125,13 +114,11 @@ app.get("/viewUsers", async(req, res) => {
     }
 });
 
-// Endpoint to edit a user by email
 app.put("/editUser/:email", async(req, res) => {
     const userEmail = req.params.email;
     const updatedUserData = req.body;
 
     try {
-        // Find the user by email and update the user data
         const updatedUser = await User.findOneAndUpdate({ Email: userEmail }, updatedUserData, { new: true });
 
         if (updatedUser) {

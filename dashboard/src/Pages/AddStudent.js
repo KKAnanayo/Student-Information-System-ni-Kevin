@@ -55,7 +55,6 @@ function AddStudent() {
     }
   }
 
-  // Function to handle changes in the "Year" TextField
   function handleYearChange(event) {
     const { value } = event.target;
     if (value >= 1 && value <= 5) {
@@ -63,42 +62,38 @@ function AddStudent() {
     }
   }
 
-  // Function to handle changes in the "ID Number" TextField
   function handleIDChange(event) {
     const { value } = event.target;
-    if (/^\d{0,8}$/.test(value)) { // Using regex to allow only exactly 8 digits
+    if (/^\d{0,8}$/.test(value)) { 
       setID(value);
     }
   }
 
   function handleCourseChange(event) {
     const { value } = event.target;
-    if (/^[A-Za-z]+$/.test(value) || value === '') { // Allow only letters or empty string
+    if (/^[A-Za-z]+$/.test(value) || value === '') { 
       setCourse(value);
     }
   }
   
-  // Function to handle changes in the "First Name" TextField
 function handleFirstNameChange(event) {
   const { value } = event.target;
-  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { // Allow letters, spaces, hyphens, underscores, and dots or empty string
+  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { 
     setFirst(value);
   }
 }
 
-// Function to handle changes in the "Last Name" TextField
+
 function handleLastNameChange(event) {
   const { value } = event.target;
-  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { // Allow letters, spaces, hyphens, underscores, and dots or empty string
+  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { 
     setLast(value);
   }
 }
 
-// Function to handle changes in the "Middle Name" TextField
 function handleMiddleNameChange(event) {
   const { value } = event.target;
-  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { // Allow letters, spaces, hyphens, underscores, and dots or empty string
-    setMiddle(value);
+  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { 
   }
 }
 
@@ -112,9 +107,9 @@ function handleMiddleNameChange(event) {
             label="ID Number"
             variant="outlined"
             value={ID}
-            onChange={handleIDChange} // Apply the validation function here
+            onChange={handleIDChange} 
             sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-            error={error && !ID} // Add error styling when ID is empty
+            error={error && !ID} 
             helperText={error && !ID ? error : ""}
           />
 
@@ -125,7 +120,7 @@ function handleMiddleNameChange(event) {
           value={First} 
           onChange={handleFirstNameChange}
           sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-          error={error && !First} // Add error styling when First is empty
+          error={error && !First} 
           helperText={error && !First ? error : ""}
         />
 
@@ -137,7 +132,7 @@ function handleMiddleNameChange(event) {
           value={Last} 
           onChange={handleLastNameChange}
           sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-          error={error && !Last} // Add error styling when Last is empty
+          error={error && !Last} 
           helperText={error && !Last ? error : ""}
         />
 
@@ -157,7 +152,7 @@ function handleMiddleNameChange(event) {
         value={Course} 
         onChange={handleCourseChange}
         sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-        error={error && !Course} // Add error styling when Course is empty
+        error={error && !Course} 
         helperText={error && !Course ? error : ""}
         />
 
@@ -166,7 +161,7 @@ function handleMiddleNameChange(event) {
             label="Year"
             variant="outlined"
             value={Year}
-            onChange={handleYearChange} // Apply the validation function here
+            onChange={handleYearChange} 
             sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
             type="number"
           />
