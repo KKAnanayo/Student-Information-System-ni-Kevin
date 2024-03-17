@@ -106,11 +106,8 @@ function ViewUsers() {
 
         axios.post("http://localhost:1337/addUser", userData)
         .then(response => {
-            if (!response.data.isUnique) {
-                setEmailUniqueError(true); // Set unique error to true if email is not unique
-                return;
-            }
-            setEmailUniqueError(false); // Reset unique error if successful
+          
+    
             console.log("User added successfully:", response.data);
             setEditFirst("");
             setEditLast("");

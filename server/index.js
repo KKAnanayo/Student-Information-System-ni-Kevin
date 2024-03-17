@@ -1,10 +1,11 @@
+
 const express = require('express');
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const mongoose = require('mongoose');
-
+const User = require("./user.model");
 
 
 app.use(cors());
@@ -95,17 +96,6 @@ db.once('open', () => {
     console.log('Connected to MongoDB');
 });
 
-// Define the user schema
-const userSchema = new mongoose.Schema({
-    First: { type: String, required: true },
-    Last: { type: String, required: true },
-    Middle: { type: String, required: true },
-    Email: { type: String, required: true, unique: true },
-    Password: { type: String, required: true }
-});
-
-// Create a mongoose model based on the userSchema
-const User = mongoose.model('User', userSchema);
 
 // Endpoint to add a user
 app.post("/addUser", async(req, res) => {
