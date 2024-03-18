@@ -221,7 +221,6 @@ function ViewUsers() {
                             <TableCell align="center">First Name</TableCell>
                             <TableCell align="center">Last Name</TableCell>
                             <TableCell align="center">Middle Name</TableCell>
-                            <TableCell align="center">Password</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -232,7 +231,6 @@ function ViewUsers() {
                                 <TableCell align="center">{user.First}</TableCell>
                                 <TableCell align="center">{user.Last}</TableCell>
                                 <TableCell align="center">{user.Middle}</TableCell>
-                                <TableCell align="center">{user.Password}</TableCell>
                                 <TableCell align="center">
                                     <Button variant="contained" onClick={() => handleEdit(user)}>EDIT</Button>
                                 </TableCell>
