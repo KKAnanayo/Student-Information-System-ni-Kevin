@@ -57,6 +57,17 @@ function ViewUsers() {
         setEditModalOpen(false);
         setEditedUser(null);
         setEmailUniqueError(false);
+        setEmailRequiredError(false);
+        setFirstNameError(false);
+        setLastNameError(false);
+        setMiddleNameError(false);
+        setPasswordError(false);
+        setEditFirst("");
+        setEditLast("");
+        setEditMiddle("");
+        setEditEmail("");
+        setEditPassword("");
+        
     };
 
     function handleAddUser () {
