@@ -5,6 +5,7 @@ import AddStudent from './Pages/AddStudent';
 import Sidebar from './Pages/Sidebar';
 import ViewStudents from './Pages/ViewStudents';
 import ViewUsers from './Pages/ViewUsers';
+import Login from './Pages/Login';
 import './App.css';
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
         <Route path="/addstudent" element={<AddStudent />} />
         <Route path="/viewstudents" element={<ViewStudents />} />
         <Route path="/viewusers" element={<ViewUsers />} />
-          <Route path="*" element ={<Dashboard/>}/>
+        <Route path ="/login" element={<Login/>}/>
+          <Route path="*" element ={<Login/>}/>
         </Routes>
       </div>
     </Router>
