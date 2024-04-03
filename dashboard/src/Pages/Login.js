@@ -9,11 +9,12 @@ function Login(){
     const [emailError, setEmailError] = useState(false);
     const[passwordError, setPasswordError] =useState(false);
  
-    const handleClose = () => {
+
+    function handleClose() {
         setOpen(false);
     };
  
-    const handleLogin = () => {
+    function handleLogin (){
         if (!email & !password) {
             setEmailError(true);
             setPasswordError(true);
@@ -36,10 +37,11 @@ function Login(){
         } else {
             setPasswordError(false);
         }
-            console.log('Email:', email);
-            console.log('Password:', password);
-            handleClose(true);
-            window.location.href = "/dashboard"; 
+        
+        console.log('Email:', email);
+        console.log('Password:', password);
+        handleClose(true);
+        window.location.href = "/dashboard"; 
        
     };
     return(
@@ -49,6 +51,7 @@ function Login(){
         open={open}
         aria-labelledby="login-modal-title"
         aria-describedby="login-modal-description"
+        className="custom-modal"
     >
         <Box className="login-container">
             <h2 id="login-modal-title">Login</h2>

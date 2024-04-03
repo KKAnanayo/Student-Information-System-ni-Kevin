@@ -7,7 +7,6 @@ const fs = require("fs");
 const mongoose = require('mongoose');
 const User = require("./user.model");
 
-
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -131,6 +130,8 @@ app.put("/editUser/:email", async(req, res) => {
         res.status(500).json({ success: false, error: "Internal Server Error" });
     }
 });
+
+
 
 const port = 1337;
 
