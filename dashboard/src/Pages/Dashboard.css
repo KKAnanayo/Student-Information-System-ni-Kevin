@@ -5,3 +5,10 @@
     text-align: left;
     margin-left:1vh;
 }
+.Logout{
+    justify-self: center;
+    text-align: center;
+    height: 100px;
+    width: 150px;
+    font-size: 50px;
+}
