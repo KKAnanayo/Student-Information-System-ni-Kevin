@@ -18,6 +18,8 @@ function Sidebar(){
           <Link to = "/viewstudents" style={{justifyContent: 'left', display: 'flex', color: '#FFFFFF', textDecoration: 'none'}}><Info sx={{ fontSize: 40 }}/>&nbsp;&nbsp;&nbsp;View Student</Link>
           <br/>
           <Link to = "/viewusers" style={{justifyContent: 'left', display: 'flex', color: '#FFFFFF', textDecoration: 'none'}}><AccountCircle sx={{ fontSize: 40 }}/>&nbsp;&nbsp;&nbsp;View Users</Link>
+          <br/>
+          <Link to = "/managestudent" style={{justifyContent: 'left', display: 'flex', color: '#FFFFFF', textDecoration: 'none'}}><AccountCircle sx={{ fontSize: 40 }}/>&nbsp;&nbsp;&nbsp;Manage Student</Link>
           </div>
         </div>
     );

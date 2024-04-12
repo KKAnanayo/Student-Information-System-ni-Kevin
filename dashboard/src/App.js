@@ -6,6 +6,7 @@ import Sidebar from './Pages/Sidebar';
 import ViewStudents from './Pages/ViewStudents';
 import ViewUsers from './Pages/ViewUsers';
 import Login from './Pages/Login';
+import ManageStudent from './Pages/ManageStudent';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/addstudent" element={<AddStudent />} />
         <Route path="/viewstudents" element={<ViewStudents />} />
+        <Route path="/managestudent" element={<ManageStudent />} />
         <Route path="/viewusers" element={<ViewUsers />} />
         <Route path ="/login" element={<Login/>}/>
           <Route path="*" element ={<Login/>}/>

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const cors = require("cors");
@@ -6,6 +5,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 const mongoose = require('mongoose');
 const User = require("./user.model");
+const Student = require("./student.model");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -79,6 +79,7 @@ app.delete('/deleteStudent/:id', async(req, res) => {
         res.status(500).send('Error deleting student.');
     }
 });
+
 mongoose.connect('mongodb://localhost:27017/mydatabase', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -131,7 +132,47 @@ app.put("/editUser/:email", async(req, res) => {
     }
 });
 
+//Manage Student
+app.post("/addManageStudent", async(req, res) => {
+    const studentData = req.body;
 
+    try {
+        const student = new Student(studentData);
+        await student.save();
+        res.json({ success: true, message: "Student added successfully!" });
+    } catch (error) {
+        console.error("Error adding user:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+app.get("/viewManageStudent", async(req, res) => {
+    try {
+        const students = await Student.find();
+        res.json(students);
+    } catch (error) {
+        console.error("Error fetching student data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+app.put("/editManageStudent/:email", async(req, res) => {
+    const studentEmail = req.params.email;
+    const updatedStudentData = req.body;
+
+    try {
+        const updatedStudent = await Student.findOneAndUpdate({ Email: studentEmail }, updatedStudentData, { new: true });
+
+        if (updatedStudent) {
+            res.json({ success: true, message: "Student updated successfully", user: updatedStudent });
+        } else {
+            res.status(404).json({ success: false, message: "Student not found" });
+        }
+    } catch (error) {
+        console.error("Error updating student:", error);
+        res.status(500).json({ success: false, error: "Internal Server Error" });
+    }
+});
 
 const port = 1337;
 
