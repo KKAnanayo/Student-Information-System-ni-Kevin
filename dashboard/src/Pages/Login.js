@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Box, Button, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import './Login.css';
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 
@@ -41,7 +42,7 @@ function Login() {
     }, []);
 
     function handleClose() {
-        setLoginOpen(false);
+        setLoginOpen(true);
     };
 
     function handleLogin() {
@@ -171,19 +172,18 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         fullWidth
                         margin="normal"
-                        error={passwordError || passwordErrorWrong}
+                        error={passwordError || passwordErrorWrong} 
                         helperText={
                             (passwordError && "Password is required") ||
                             (passwordErrorWrong && "Password is wrong")
                         }
                     />
-                    <div className="button-container">
+                    <div className="button-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <Button variant="contained" onClick={handleLogin}>
                             Login
                         </Button>   
-                        <Button variant="contained" onClick={handleSignup} >
-                            Sign Up
-                        </Button>
+                      <br/>
+                      <Link onClick={handleSignup}>No Account? Signup</Link>
                     </div>
                 </Box>
             </Modal>
@@ -192,7 +192,9 @@ function Login() {
             <Modal open={modalOpen}
             aria-labelledby="login-modal-title"
             aria-describedby="login-modal-description"
-            className="custom-modal">
+            className="custom-modal"
+            onClose={handleClose}
+            >
                 <Box className="login-container">
                 <Typography variant="h6" component="h2" fontWeight="bold" align="center">Sign up</Typography>
                     <div className="fieldContainer" style={{ marginBottom: '16px' }} />
