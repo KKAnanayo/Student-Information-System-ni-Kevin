@@ -168,7 +168,7 @@ function ManageStudent() {
             Password: editPassword,
         };
 
-        axios.put(`http://localhost:1337/editStudent/${editedStudent.Email}`, studentData)
+        axios.put(`http://localhost:1337/editManageStudent/${editedStudent.Email}`, studentData)
             .then(response => {
                 console.log("Student updated successfully:", response.data);
                 setEditModalOpen(false);
