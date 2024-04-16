@@ -1,11 +1,13 @@
 .main {
     font-size: 30px;
     height: 100%;
-    width: 100%;
+    width: 90%;
     text-align: left;
-    margin-left:1vh;
+    margin-left: 5vh;
+    margin-right: 5vh;
 }
-.Logout{
+
+.Logout {
     justify-self: center;
     text-align: center;
     height: 100px;

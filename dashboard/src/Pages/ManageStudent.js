@@ -14,14 +14,16 @@ function ManageStudent() {
     const [editFirst, setEditFirst] = useState("");
     const [editLast, setEditLast] = useState("");
     const [editMiddle, setEditMiddle] = useState("");
-    const [editEmail, setEditEmail] = useState("");
-    const [editPassword, setEditPassword] = useState("");
+    const [editID, setEditID] = useState("");
+    const [editCourse, setEditCourse] = useState("");
+    const [editYear, setEditYear] = useState("");
 
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
-    const [emailRequiredError, setEmailRequiredError] = useState(false);
-    const [emailUniqueError, setEmailUniqueError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
+    const [idRequiredError, setIDRequiredError] = useState(false);
+    const [idUniqueError, setIDUniqueError] = useState(false);
+    const[courseError, setCourseError]= useState(false);
+    const[yearError, setYearError]= useState(false);
 
 
     useEffect(() => {
@@ -47,8 +49,9 @@ function ManageStudent() {
         setEditFirst(student.First);
         setEditLast(student.Last);
         setEditMiddle(student.Middle);
-        setEditEmail(student.Email);
-        setEditPassword(student.Password);
+        setEditID(student.ID);
+        setEditCourse(student.Course);
+        setEditYear(student.Year);
         setEditModalOpen(true);
     };
 
@@ -56,16 +59,18 @@ function ManageStudent() {
         setModalOpen(false);
         setEditModalOpen(false);
         setEditedStudent(null);
-        setEmailUniqueError(false);
-        setEmailRequiredError(false);
+        setIDUniqueError(false);
+        setIDRequiredError(false);
         setFirstNameError(false);
         setLastNameError(false);
-        setPasswordError(false);
+        setCourseError(false);
+        setYearError(false);
         setEditFirst("");
         setEditLast("");
         setEditMiddle("");
-        setEditEmail("");
-        setEditPassword("");
+        setEditID("");
+        setEditCourse("");
+        setEditYear("");
         
     };
 
@@ -88,46 +93,54 @@ function ManageStudent() {
             setLastNameError(false);
         }
 
-        if (!editEmail) {
-            setEmailRequiredError(true);
+        if (!editID) {
+            setIDRequiredError(true);
             return;
         } else {
-            setEmailRequiredError(false);
+            setIDRequiredError(false);
         }
 
-        if (!editPassword) {
-            setPasswordError(true);
+        if (!editCourse) {
+            setCourseError(true);
             return;
         } else {
-            setPasswordError(false);
+            setCourseError(false);
+        }
+        if (!editYear) {
+            setYearError(true);
+            return;
+        } else {
+            setYearError(false);
         }
 
         
         const studentData = {
+            ID: editID,
             First: editFirst,
             Last: editLast,
             Middle: editMiddle,
-            Email: editEmail,
-            Password: editPassword,
+            Course: editCourse,
+            Year: editYear,
         };
 
         axios.post("http://localhost:1337/addManageStudent", studentData)
         .then(response => {
     
             console.log("Student added successfully:", response.data);
+            setEditID("");
             setEditFirst("");
             setEditLast("");
             setEditMiddle("");
-            setEditEmail("");
-            setEditPassword("");
+            setEditCourse("");
+            setEditYear("");
             setModalOpen(false); 
             fetchData();
 
-            setEmailUniqueError(false);
+            setIDUniqueError(false);
         })
         .catch(error => {
             console.error("Error adding Student:", error);
-            setEmailUniqueError(true);
+            setIDUniqueError(true);
             });
     }
 
@@ -146,29 +159,35 @@ function ManageStudent() {
             setLastNameError(false);
         }
 
-        if (!editEmail) {
-            setEmailRequiredError(true);
+        if (!editID) {
+            setIDRequiredError(true);
             return;
         } else {
-            setEmailRequiredError(false);
+            setIDRequiredError(false);
         }
 
-        if (!editPassword) {
-            setPasswordError(true);
+        if (!editCourse) {
+            setCourseError(true);
             return;
         } else {
-            setPasswordError(false);
+            setCourseError(false);
         }
-        
+        if (!editYear) {
+            setYearError(true);
+            return;
+        } else {
+            setYearError(false);
+        }
         const studentData = {
+            ID: editID,
             First: editFirst,
             Last: editLast,
             Middle: editMiddle,
-            Email: editEmail,
-            Password: editPassword,
+            Course: editCourse,
+            Year: editYear,
         };
 
-        axios.put(`http://localhost:1337/editManageStudent/${editedStudent.Email}`, studentData)
+        axios.put(`http://localhost:1337/editManageStudent/${editedStudent.ID}`, studentData)
             .then(response => {
                 console.log("Student updated successfully:", response.data);
                 setEditModalOpen(false);
@@ -188,7 +207,18 @@ function ManageStudent() {
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
                 <Typography variant="h6" component="h2" fontWeight="bold" align="left">Add Student Information</Typography>
                     <div style={{ marginBottom: '16px' }} />
-                    
+                    <TextField variant="outlined" 
+                    label="ID" 
+                    value={editID} 
+                    onChange={(e) => setEditID(e.target.value)} 
+                    error={idRequiredError || idUniqueError}
+                    helperText={
+                        (idRequiredError && "ID is required") ||
+                        (idUniqueError && "ID must be unique")
+                    }
+                    />
+                    <div style={{ marginBottom: '16px' }} 
+                    />
                     <TextField variant="outlined" 
                     label="First Name" 
                     value={editFirst} onChange={(e) => 
@@ -211,26 +241,25 @@ function ManageStudent() {
                     onChange={(e) => setEditMiddle(e.target.value)} 
                     />
     
-                    <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" 
-                    label="Email" 
-                    value={editEmail} 
-                    onChange={(e) => setEditEmail(e.target.value)} 
-                    error={emailRequiredError || emailUniqueError}
-                    helperText={
-                        (emailRequiredError && "Email is required") ||
-                        (emailUniqueError && "Email must be unique")
-                    }
-                    />
                     <div style={{ marginBottom: '16px' }} 
                     />
-                    <TextField type="password" 
+                    <TextField type="text" 
                     variant="outlined" 
-                    label="Password" 
-                    value={editPassword} 
-                    onChange={(e) => setEditPassword(e.target.value)} 
-                    error={passwordError}
-                    helperText={passwordError && "Password is required"}
+                    label="Course" 
+                    value={editCourse} 
+                    onChange={(e) => setEditCourse(e.target.value)} 
+                    error={courseError}
+                    helperText={courseError && "Course is required"}
+                    />
+                    <div style={{ marginBottom: '16px' }} />
+
+                    <TextField type="text" 
+                    variant="outlined" 
+                    label="Year" 
+                    value={editYear} 
+                    onChange={(e) => setEditYear(e.target.value)} 
+                    error={yearError}
+                    helperText={yearError && "Year is required"}
                     />
                     <div style={{ marginBottom: '16px' }} />
 
@@ -242,20 +271,24 @@ function ManageStudent() {
                 <Table sx={{ minWidth: 100 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
+                        <TableCell align="center"><b>ID</b></TableCell>
                             <TableCell align="center"><b>First Name</b></TableCell>
                             <TableCell align="center"><b>Last Name</b></TableCell>
                             <TableCell align="center"><b>Middle Name</b></TableCell>
-                            <TableCell align="center"><b>Email</b></TableCell>
+                            <TableCell align="center"><b>Course</b></TableCell>
+                            <TableCell align="center"><b>Year</b></TableCell>
                             <TableCell align="center"><b>Actions</b></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {students && students.map(student => (
-                            <TableRow key={student.Email}>
+                            <TableRow key={student.ID}>
+                                 <TableCell align="center">{student.ID}</TableCell>
                                 <TableCell align="center">{student.First}</TableCell>
                                 <TableCell align="center">{student.Last}</TableCell>
                                 <TableCell align="center">{student.Middle}</TableCell>
-                                <TableCell align="center">{student.Email}</TableCell>
+                                <TableCell align="center">{student.Course}</TableCell>
+                                <TableCell align="center">{student.Year}</TableCell>
                                 <TableCell align="center">
                                     <Button variant="contained" onClick={() => handleEdit(student)}>EDIT</Button>
                                 </TableCell>
@@ -268,15 +301,24 @@ function ManageStudent() {
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
                     <Typography variant="h6" component="h2" fontWeight="bold" align="left">Student Information</Typography>
                     <div style={{ marginBottom: '16px' }} />
-                    
+                   
+                    <TextField variant="outlined" 
+                    label="ID" 
+                    value={editID} 
+                    onChange={(e) => setEditID(e.target.value)} 
+                    disabled
+                    />
+                 
+                 <div style={{ marginBottom: '16px' }} 
+                    />
                     <TextField variant="outlined" 
                     label="First Name" 
-                    value={editFirst} 
-                    onChange={(e) => setEditFirst(e.target.value)} 
+                    value={editFirst} onChange={(e) => 
+                    setEditFirst(e.target.value)} 
                     error={firstNameError}
                     helperText={firstNameError && "First Name is required"}
                     />
-                    <div style={{ marginBottom: '16px' }} />
+                    <div style={{ marginBottom: '16px' }}/>
                     <TextField variant="outlined" 
                     label="Last Name" 
                     value={editLast} 
@@ -287,26 +329,31 @@ function ManageStudent() {
                     <div style={{ marginBottom: '16px' }} />
                     <TextField variant="outlined" 
                     label="Middle Name" 
-                    value={editMiddle} onChange={(e) => setEditMiddle(e.target.value)} 
+                    value={editMiddle} 
+                    onChange={(e) => setEditMiddle(e.target.value)} 
                     />
-                    <div style={{ marginBottom: '16px' }} />
-                    <TextField variant="outlined" 
-                    label="Email" 
-                    value={editEmail} 
-                    onChange={(e) => setEditEmail(e.target.value)} 
-                    disabled
+    
+                    <div style={{ marginBottom: '16px' }} 
                     />
-                    <div style={{ marginBottom: '16px' }} />
-                    <TextField type="password" 
+                    <TextField type="text" 
                     variant="outlined" 
-                    label="Password" 
-                    value={editPassword} 
-                    onChange={(e) => setEditPassword(e.target.value)} 
-                    error={passwordError}
-                    helperText={passwordError && "Password is required"}
+                    label="Course" 
+                    value={editCourse} 
+                    onChange={(e) => setEditCourse(e.target.value)} 
+                    error={courseError}
+                    helperText={courseError && "Course is required"}
                     />
                     <div style={{ marginBottom: '16px' }} />
-                    
+
+                    <TextField type="text" 
+                    variant="outlined" 
+                    label="Year" 
+                    value={editYear} 
+                    onChange={(e) => setEditYear(e.target.value)} 
+                    error={yearError}
+                    helperText={yearError && "Year is required"}
+                    />
+                    <div style={{ marginBottom: '16px' }} />
 
                     <Button variant="contained" onClick={handleSaveEdit}>Save</Button>
                 </Box>

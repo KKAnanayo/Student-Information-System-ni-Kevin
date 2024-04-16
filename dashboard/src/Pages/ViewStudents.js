@@ -139,7 +139,7 @@ function handleDelete() {
   return (
     <>
       <div className="view-container">
-        <h1>View Students</h1>
+        <h3>View Students</h3>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 100 }} aria-label="simple table">
             <TableHead>

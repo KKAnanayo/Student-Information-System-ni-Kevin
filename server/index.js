@@ -156,12 +156,12 @@ app.get("/viewManageStudent", async(req, res) => {
     }
 });
 
-app.put("/editManageStudent/:email", async(req, res) => {
-    const studentEmail = req.params.email;
+app.put("/editManageStudent/:id", async(req, res) => {
+    const studentID = req.params.id;
     const updatedStudentData = req.body;
 
     try {
-        const updatedStudent = await Student.findOneAndUpdate({ Email: studentEmail }, updatedStudentData, { new: true });
+        const updatedStudent = await Student.findOneAndUpdate({ ID: studentID }, updatedStudentData, { new: true });
 
         if (updatedStudent) {
             res.json({ success: true, message: "Student updated successfully", user: updatedStudent });

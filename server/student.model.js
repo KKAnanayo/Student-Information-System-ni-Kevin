@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
+    ID: { type: String, required: true, unique: true },
     First: { type: String, required: true },
     Last: { type: String, required: true },
     Middle: { type: String, required: true },
-    Email: { type: String, required: true, unique: true },
-    Password: { type: String, required: true },
+    Course: { type: String, required: true },
+    Year: { type: String, required: true },
 
 }, { collection: "student-data" });
 

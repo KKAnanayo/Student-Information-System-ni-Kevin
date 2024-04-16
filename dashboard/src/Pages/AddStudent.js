@@ -101,7 +101,7 @@ function handleMiddleNameChange(event) {
     <div className='content'>
       <Grid container direction="row" justifyContent="left" alignItems="left">
         <Grid item xs={4}>
-          <h4>ADD STUDENT</h4>
+          <h5>ADD STUDENT</h5>
           <TextField
             id="outlined-basic"
             label="ID Number"

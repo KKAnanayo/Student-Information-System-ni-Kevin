@@ -14,7 +14,7 @@ function Signup() {
     const [editPassword, setEditPassword] = useState("");
 
     const [firstNameError, setFirstNameError] = useState(false);
-    const [lastNameError, setLastNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);  
     const [emailRequiredError, setEmailRequiredError] = useState(false);
     const [emailUniqueError, setEmailUniqueError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
