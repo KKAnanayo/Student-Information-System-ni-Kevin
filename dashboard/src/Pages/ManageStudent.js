@@ -253,7 +253,7 @@ function ManageStudent() {
                     />
                     <div style={{ marginBottom: '16px' }} />
 
-                    <TextField type="text" 
+                    <TextField type="number" 
                     variant="outlined" 
                     label="Year" 
                     value={editYear} 
@@ -345,7 +345,7 @@ function ManageStudent() {
                     />
                     <div style={{ marginBottom: '16px' }} />
 
-                    <TextField type="text" 
+                    <TextField type="number" 
                     variant="outlined" 
                     label="Year" 
                     value={editYear} 
