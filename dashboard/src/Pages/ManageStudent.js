@@ -15,6 +15,7 @@ function ManageStudent() {
     const [editLast, setEditLast] = useState("");
     const [editMiddle, setEditMiddle] = useState("");
     const [editID, setEditID] = useState("");
+    const [editPassword, setEditPassword] = useState("");
     const [editCourse, setEditCourse] = useState("");
     const [editYear, setEditYear] = useState("");
 
@@ -24,6 +25,7 @@ function ManageStudent() {
     const [idUniqueError, setIDUniqueError] = useState(false);
     const[courseError, setCourseError]= useState(false);
     const[yearError, setYearError]= useState(false);
+    const[passwordRequiredError, setPasswordRequiredError]= useState(false);
 
 
     useEffect(() => {
@@ -50,6 +52,7 @@ function ManageStudent() {
         setEditLast(student.Last);
         setEditMiddle(student.Middle);
         setEditID(student.ID);
+        setEditPassword(student.Password);
         setEditCourse(student.Course);
         setEditYear(student.Year);
         setEditModalOpen(true);
@@ -65,10 +68,12 @@ function ManageStudent() {
         setLastNameError(false);
         setCourseError(false);
         setYearError(false);
+        setPasswordRequiredError(false);
         setEditFirst("");
         setEditLast("");
         setEditMiddle("");
         setEditID("");
+        setEditPassword("");
         setEditCourse("");
         setEditYear("");
         
@@ -100,6 +105,13 @@ function ManageStudent() {
             setIDRequiredError(false);
         }
 
+        if (!editPassword) {
+            setPasswordRequiredError(true);
+            return;
+        } else {
+            setPasswordRequiredError(false);
+        }
+
         if (!editCourse) {
             setCourseError(true);
             return;
@@ -116,6 +128,7 @@ function ManageStudent() {
         
         const studentData = {
             ID: editID,
+            Password: editPassword,
             First: editFirst,
             Last: editLast,
             Middle: editMiddle,
@@ -128,6 +141,7 @@ function ManageStudent() {
     
             console.log("Student added successfully:", response.data);
             setEditID("");
+            setEditPassword("");
             setEditFirst("");
             setEditLast("");
             setEditMiddle("");
@@ -166,6 +180,13 @@ function ManageStudent() {
             setIDRequiredError(false);
         }
 
+        if (!editPassword) {
+            setPasswordRequiredError(true);
+            return;
+        } else {
+            setPasswordRequiredError(false);
+        }
+
         if (!editCourse) {
             setCourseError(true);
             return;
@@ -180,6 +201,7 @@ function ManageStudent() {
         }
         const studentData = {
             ID: editID,
+            Password: editPassword,
             First: editFirst,
             Last: editLast,
             Middle: editMiddle,
@@ -260,6 +282,17 @@ function ManageStudent() {
                     onChange={(e) => setEditYear(e.target.value)} 
                     error={yearError}
                     helperText={yearError && "Year is required"}
+                    />
+                    <div style={{ marginBottom: '16px' }} />
+
+                    
+                    <TextField type="password" 
+                    variant="outlined" 
+                    label="Password" 
+                    value={editPassword} 
+                    onChange={(e) => setEditPassword(e.target.value)} 
+                    error={passwordRequiredError}
+                    helperText={passwordRequiredError && "Password is required"}
                     />
                     <div style={{ marginBottom: '16px' }} />
 
@@ -352,6 +385,16 @@ function ManageStudent() {
                     onChange={(e) => setEditYear(e.target.value)} 
                     error={yearError}
                     helperText={yearError && "Year is required"}
+                    />
+                    <div style={{ marginBottom: '16px' }} />
+
+                    <TextField type="password" 
+                    variant="outlined" 
+                    label="Password" 
+                    value={editPassword} 
+                    onChange={(e) => setEditPassword(e.target.value)} 
+                    error={passwordRequiredError}
+                    helperText={passwordRequiredError && "Password is required"}
                     />
                     <div style={{ marginBottom: '16px' }} />
 

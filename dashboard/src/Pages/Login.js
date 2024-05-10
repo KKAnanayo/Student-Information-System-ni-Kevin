@@ -8,7 +8,9 @@ import axios from "axios";
 
 function Login() {
     const [email, setEmail] = useState('');
+    const [id, setid] = useState('');
     const [password, setPassword] = useState('');
+    const [studpassword, setstudPassword] = useState('');
     const [loginopen, setLoginOpen] = useState(true);
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -16,6 +18,7 @@ function Login() {
     const [passwordErrorWrong, setPasswordWrong] = useState(false);
 
     const [users, setUsers] = useState([]);
+    const [students, setStudents] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [editedUser, setEditedUser] = useState(null);
     const [editFirst, setEditFirst] = useState("");
@@ -31,14 +34,21 @@ function Login() {
     
     useEffect(() => {
         const storedEmail = localStorage.getItem('email');
+        const storedStudent = localStorage.getItem('id')
 
-        if (storedEmail) {
+        if (storedEmail ) {
             window.location.href = "/dashboard";
+        }
+        else if(storedStudent){
+            window.location.href = "/student";
         }
         else if (localStorage == null) {
 
             window.location.href = "/Login";
         }
+
+       
+        
     }, []);
 
     function handleClose() {
@@ -76,6 +86,32 @@ function Login() {
                 console.error("Error fetching user data:", error);
             });
     };
+
+    axios.get(`http://localhost:1337/viewManageStudent`)
+    .then((response) => {
+        const students = response.data;
+        const student = students.find(student => student.ID === id);
+        if (student) {
+            if (student.Password === studpassword) {
+                console.log('Login successful');
+                localStorage.setItem('id', id);
+                window.location.href = "/student";
+            } else {
+                console.log('Incorrect password');
+                setPasswordWrong(true);
+                setEmailNone(false);
+            }
+        } else {
+            console.log('Student not found');
+            setEmailNone(true);
+            setPasswordWrong(true);
+        }
+    })
+    .catch((error) => {
+        console.error("Error fetching user data:", error);
+    });
+
+
 
     function handleSignup() {
        setLoginOpen(false);
@@ -154,13 +190,13 @@ function Login() {
                     <TextField
                         label="Email"
                         variant="outlined"
-                        value={email}
+                        value={email || id}
                         onChange={(e) => setEmail(e.target.value)}
                         fullWidth
                         margin="normal"
                         error={emailError || emailErrorNone}
                         helperText={
-                            (emailError && "Email is required") ||
+                            (emailError && "Email or ID is required") ||
                             (emailErrorNone && "Email not found")
                         }
                     />
