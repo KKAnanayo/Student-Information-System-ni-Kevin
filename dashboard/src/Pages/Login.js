@@ -92,7 +92,7 @@ function Login() {
         const students = response.data;
         const student = students.find(student => student.ID === id);
         if (student) {
-            if (student.Password === studpasswordpassword) {
+            if (student.Password === studpassword) {
                 console.log('Login successful');
                 localStorage.setItem('id', id);
                 window.location.href = "/student";
