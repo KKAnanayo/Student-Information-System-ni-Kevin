@@ -15,6 +15,7 @@ function Login() {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [emailErrorNone, setEmailNone] = useState(false);
+    const [idErrorNone, setIDNone] = useState(false);
     const [passwordErrorWrong, setPasswordWrong] = useState(false);
 
     const [users, setUsers] = useState([]);
@@ -74,10 +75,34 @@ function Login() {
                     } else {
                         console.log('Incorrect password');
                         setPasswordWrong(true);
-                        setEmailNone(false);
+                        setIDNone(false);
                     }
                 } else {
                     console.log('User not found');
+                    setIDNone(true);
+                    setPasswordWrong(true);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching user data:", error);
+            });
+
+            axios.get(`http://localhost:1337/viewManageStudent`)
+            .then((response) => {
+                const students = response.data;
+                const student = students.find(student => student.ID === id);
+                if (student) {
+                    if (student.Password === studpassword) {
+                        console.log('Login successful');
+                        localStorage.setItem('id', id);
+                        window.location.href = "/student";
+                    } else {
+                        console.log('Incorrect password');
+                        setPasswordWrong(true);
+                        setEmailNone(false);
+                    }
+                } else {
+                    console.log('Student not found');
                     setEmailNone(true);
                     setPasswordWrong(true);
                 }
@@ -85,32 +110,10 @@ function Login() {
             .catch((error) => {
                 console.error("Error fetching user data:", error);
             });
+        
     };
 
-    axios.get(`http://localhost:1337/viewManageStudent`)
-    .then((response) => {
-        const students = response.data;
-        const student = students.find(student => student.ID === id);
-        if (student) {
-            if (student.Password === studpassword) {
-                console.log('Login successful');
-                localStorage.setItem('id', id);
-                window.location.href = "/student";
-            } else {
-                console.log('Incorrect password');
-                setPasswordWrong(true);
-                setEmailNone(false);
-            }
-        } else {
-            console.log('Student not found');
-            setEmailNone(true);
-            setPasswordWrong(true);
-        }
-    })
-    .catch((error) => {
-        console.error("Error fetching user data:", error);
-    });
-
+  
 
 
     function handleSignup() {
@@ -188,24 +191,25 @@ function Login() {
                 <Box className="login-container">
                     <h2 id="login-modal-title">Login</h2>
                     <TextField
-                        label="Email"
+                        label="Email or ID"
                         variant="outlined"
                         value={email || id}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value) || setid(e.target.value)}
                         fullWidth
                         margin="normal"
-                        error={emailError || emailErrorNone}
+                        error={emailError || emailErrorNone || idErrorNone}
                         helperText={
                             (emailError && "Email or ID is required") ||
-                            (emailErrorNone && "Email not found")
+                            (emailErrorNone && "Email not found")||
+                            (idErrorNone && "ID not found")
                         }
                     />
                     <TextField
                         label="Password"
                         type="password"
                         variant="outlined"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={password || studpassword}
+                        onChange={(e) => setPassword(e.target.value) || setstudPassword(e.target.value)}
                         fullWidth
                         margin="normal"
                         error={passwordError || passwordErrorWrong} 
