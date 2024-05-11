@@ -13,4 +13,12 @@
     height: 100px;
     width: 150px;
     font-size: 50px;
+    background-position: center;
+}
+
+body{
+    background-image: url('flying-slice-of-pizza-cartoon-vector.webp');
+    background-size: 80% 100%;
+    background-repeat: no-repeat;
+    background-position: right;
 }

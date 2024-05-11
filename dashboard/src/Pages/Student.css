@@ -1,10 +1,14 @@
-.view-container {
+
+.view-contain {
     font-size: 30px;
     height: 100%;
     width: 90%;
     margin-right: 5vh;
     margin-left: 5vh;
     color: black;
+    text-align: center;
+    background-image: ur('pexels-markusspiske-177598.jpg');
+    background-size: cover;
 }
 .img {
     width: 200px;
@@ -12,3 +16,4 @@
     border-radius: 50%;
     border: 5px solid black;
   }
+ 

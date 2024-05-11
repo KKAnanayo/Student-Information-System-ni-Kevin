@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Button, TextField } from "@mui/material";
+import { TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Paper } from "@mui/material";
 import axios from 'axios';
 import './Student.css';
 
@@ -37,41 +37,48 @@ function Student() {
   };
 
   return (
-    <div className='view-container'>
-      {student && (
-        <>
-          <h2>Student ID: {storedID}</h2>
-          <input type="file" onChange={handleChange} />
-          <div>
-            <img src={avatar} className="img" alt="" />
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 100 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center"><b>ID</b></TableCell>
-                    <TableCell align="center"><b>First Name</b></TableCell>
-                    <TableCell align="center"><b>Last Name</b></TableCell>
-                    <TableCell align="center"><b>Middle Name</b></TableCell>
-                    <TableCell align="center"><b>Course</b></TableCell>
-                    <TableCell align="center"><b>Year</b></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow key={student.ID}>
-                    <TableCell align="center">{student.ID}</TableCell>
-                    <TableCell align="center">{student.First}</TableCell>
-                    <TableCell align="center">{student.Last}</TableCell>
-                    <TableCell align="center">{student.Middle}</TableCell>
-                    <TableCell align="center">{student.Course}</TableCell>
-                    <TableCell align="center">{student.Year}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </>
-      )}
+    <div className='view-contain'>
+  {student && (
+    <div className="center-container">
+      <h2>Student ID: {storedID}</h2>
+      <input type="file" onChange={handleChange} />
+      <div className="img-container">
+        <img src={avatar} className="img" alt="" />
+      </div>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 100 }} aria-label="simple table">
+          <TableBody>
+            <TableRow>
+              <TableCell align="center"><b>ID</b></TableCell>
+              <TableCell align="center">{student.ID}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell align="center"><b>First Name</b></TableCell>
+              <TableCell align="center">{student.First}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell align="center"><b>Last Name</b></TableCell>
+              <TableCell align="center">{student.Last}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell align="center"><b>Middle Name</b></TableCell>
+              <TableCell align="center">{student.Middle}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell align="center"><b>Course</b></TableCell>
+              <TableCell align="center">{student.Course}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell align="center"><b>Year</b></TableCell>
+              <TableCell align="center">{student.Year}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
+  )}
+</div>
+
   );
 }
 
