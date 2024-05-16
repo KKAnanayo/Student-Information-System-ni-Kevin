@@ -6,21 +6,29 @@ import Add from '@mui/icons-material/Add';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Logout from '@mui/icons-material/Logout';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
 function Sidebar(){
     const storedData = localStorage.getItem('email') ? 'email' : localStorage.getItem('id') ? 'id' : null;
+    const navigate = useNavigate();
+    useEffect(() => {
+      if(storedID){
+        navigate('/student');
+      }
+    }, []);
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
     const storedID = localStorage.getItem('id');
     const isLoginPage = window.location.pathname === '/'; 
     
+    
 
     if (!(storedEmail || storedID) && !isLoginPage) {
         window.location.href = "/";
-    } else if (localStorage == null){
+    }    else if (localStorage == null){
       window.location.href = "/";
-    }
+    } 
 
 }, []);
 function handleLogout() {
@@ -37,7 +45,7 @@ function EmailorID(){
 
     }
     else if(localStorage = 'id'){
-
+  
     };
 }
 

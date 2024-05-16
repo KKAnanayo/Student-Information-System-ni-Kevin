@@ -3,10 +3,12 @@ import { Modal, Box, Button, TextField } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import './Login.css';
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
 function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [id, setid] = useState('');
     const [password, setPassword] = useState('');
@@ -61,54 +63,54 @@ function Login() {
             setEmailError(!email);
             setPasswordError(!password);
             return;
-        }
-
-        axios.get(`http://localhost:1337/viewUsers`)
-            .then((response) => {
-                const users = response.data;
-                const user = users.find(user => user.Email === email);
-                if (user) {
-                    if (user.Password === password) {
-                        console.log('Login successful');
-                        localStorage.setItem('email', email);
-                        window.location.href = "/dashboard";
-                    } else {
-                        console.log('Incorrect password');
-                        setPasswordWrong(true);
-                        setIDNone(false);
-                    }
+          }
+          axios
+            .get('http://localhost:1337/viewUsers')
+            .then((userResponse) => {
+              const users = userResponse.data;
+              const user = users.find((user) => user.Email === email);
+              if (user) {
+                if (user.Password === password) {
+                  console.log("Login successful");
+                  localStorage.setItem("email", email);
+                  navigate("/dashboard");
                 } else {
-                    console.log('User not found');
-                    setIDNone(true);
-                    setPasswordWrong(true);
+                  console.log("Incorrect password");
+                  setPasswordWrong(true);
+                  setEmailNone(false);
                 }
-            })
-            .catch((error) => {
-                console.error("Error fetching user data:", error);
-            });
-
-            axios.get(`http://localhost:1337/viewManageStudent`)
-            .then((response) => {
-                const students = response.data;
-                const student = students.find(student => student.ID === id);
-                if (student) {
-                    if (student.Password === studpassword) {
-                        console.log('Login successful');
-                        localStorage.setItem('id', id);
-                        window.location.href = "/student";
-                    } else {
-                        console.log('Incorrect password');
+              } else {
+                console.log("User not found");
+    
+                // If user not found, check the student data
+                axios
+                  .get('http://localhost:1337/viewManageStudent')
+                  .then((studentResponse) => {
+                    const students = studentResponse.data;
+                    const stud = students.find((stud) => stud.ID === id);
+                    if (stud) {
+                      if (stud.Password === studpassword) {
+                        console.log("Login successful");
+                        localStorage.setItem("id", id);
+                        navigate("/student");
+                      } else {
+                        console.log("Incorrect Student password");
                         setPasswordWrong(true);
                         setEmailNone(false);
+                      }
+                    } else {
+                      console.log("Student not found");
+                      setEmailNone(true);
+                      setPasswordWrong(true);
                     }
-                } else {
-                    console.log('Student not found');
-                    setEmailNone(true);
-                    setPasswordWrong(true);
-                }
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching Student data:", error);
+                  });
+              }
             })
             .catch((error) => {
-                console.error("Error fetching user data:", error);
+              console.error("Error fetching user data:", error);
             });
         
     };
