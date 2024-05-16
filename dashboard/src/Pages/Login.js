@@ -18,10 +18,8 @@ function Login() {
     const [idErrorNone, setIDNone] = useState(false);
     const [passwordErrorWrong, setPasswordWrong] = useState(false);
 
-    const [users, setUsers] = useState([]);
-    const [students, setStudents] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const [editedUser, setEditedUser] = useState(null);
+
     const [editFirst, setEditFirst] = useState("");
     const [editLast, setEditLast] = useState("");
     const [editMiddle, setEditMiddle] = useState("");
