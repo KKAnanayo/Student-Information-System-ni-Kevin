@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import './AddStudent.css';
-import { Grid, TextField, Button } from '@mui/material';
+import "./AddStudent.css";
+import { Grid, TextField, Button } from "@mui/material";
 
 function AddStudent() {
   const [ID, setID] = useState("");
@@ -11,7 +11,7 @@ function AddStudent() {
   const [Year, setYear] = useState("1");
   const [error, setError] = useState("");
 
-  async function handleAddStudent() { 
+  async function handleAddStudent() {
     if (!First || !Last || !ID || !Course) {
       setError("Please fill out all Box.");
       return;
@@ -30,7 +30,7 @@ function AddStudent() {
       const response = await fetch("http://localhost:1337/addstudent", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(studentData),
       });
@@ -47,7 +47,7 @@ function AddStudent() {
         setError("");
         alert(result.message);
       } else {
-        alert("Failed to add student. Please try again.")
+        alert("Failed to add student. Please try again.");
       }
     } catch (error) {
       console.error("Error adding student:", error);
@@ -64,41 +64,40 @@ function AddStudent() {
 
   function handleIDChange(event) {
     const { value } = event.target;
-    if (/^\d{0,8}$/.test(value)) { 
+    if (/^\d{0,8}$/.test(value)) {
       setID(value);
     }
   }
 
   function handleCourseChange(event) {
     const { value } = event.target;
-    if (/^[A-Za-z]+$/.test(value) || value === '') { 
+    if (/^[A-Za-z]+$/.test(value) || value === "") {
       setCourse(value);
     }
   }
-  
-function handleFirstNameChange(event) {
-  const { value } = event.target;
-  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { 
-    setFirst(value);
-  }
-}
 
-
-function handleLastNameChange(event) {
-  const { value } = event.target;
-  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { 
-    setLast(value);
+  function handleFirstNameChange(event) {
+    const { value } = event.target;
+    if (/^[A-Za-z\s\-_.]*$/.test(value) || value === "") {
+      setFirst(value);
+    }
   }
-}
 
-function handleMiddleNameChange(event) {
-  const { value } = event.target;
-  if (/^[A-Za-z\s\-_.]*$/.test(value) || value === '') { 
+  function handleLastNameChange(event) {
+    const { value } = event.target;
+    if (/^[A-Za-z\s\-_.]*$/.test(value) || value === "") {
+      setLast(value);
+    }
   }
-}
+
+  function handleMiddleNameChange(event) {
+    const { value } = event.target;
+    if (/^[A-Za-z\s\-_.]*$/.test(value) || value === "") {
+    }
+  }
 
   return (
-    <div className='content'>
+    <div className="content">
       <Grid container direction="row" justifyContent="left" alignItems="left">
         <Grid item xs={4}>
           <h5>ADD STUDENT</h5>
@@ -107,75 +106,70 @@ function handleMiddleNameChange(event) {
             label="ID Number"
             variant="outlined"
             value={ID}
-            onChange={handleIDChange} 
-            sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-            error={error && !ID} 
+            onChange={handleIDChange}
+            sx={{ width: "20vw", mb: 5, fontSize: "24px" }}
+            error={error && !ID}
             helperText={error && !ID ? error : ""}
           />
 
-        <TextField 
-          id="outlined-basic" 
-          label="First Name" 
-          variant="outlined" 
-          value={First} 
-          onChange={handleFirstNameChange}
-          sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-          error={error && !First} 
-          helperText={error && !First ? error : ""}
-        />
+          <TextField
+            id="outlined-basic"
+            label="First Name"
+            variant="outlined"
+            value={First}
+            onChange={handleFirstNameChange}
+            sx={{ width: "20vw", mb: 5, fontSize: "24px" }}
+            error={error && !First}
+            helperText={error && !First ? error : ""}
+          />
 
+          <TextField
+            id="outlined-basic"
+            label="Last Name"
+            variant="outlined"
+            value={Last}
+            onChange={handleLastNameChange}
+            sx={{ width: "20vw", mb: 5, fontSize: "24px" }}
+            error={error && !Last}
+            helperText={error && !Last ? error : ""}
+          />
 
-        <TextField 
-          id="outlined-basic" 
-          label="Last Name" 
-          variant="outlined" 
-          value={Last} 
-          onChange={handleLastNameChange}
-          sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-          error={error && !Last} 
-          helperText={error && !Last ? error : ""}
-        />
+          <TextField
+            id="outlined-basic"
+            label="Middle Name"
+            variant="outlined"
+            value={Middle}
+            onChange={handleMiddleNameChange}
+            sx={{ width: "20vw", mb: 5, fontSize: "24px" }}
+          />
 
-        <TextField 
-          id="outlined-basic" 
-          label="Middle Name" 
-          variant="outlined" 
-          value={Middle} 
-          onChange={handleMiddleNameChange}
-          sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-        />
+          <TextField
+            id="outlined-basic"
+            label="Course"
+            variant="outlined"
+            value={Course}
+            onChange={handleCourseChange}
+            sx={{ width: "20vw", mb: 5, fontSize: "24px" }}
+            error={error && !Course}
+            helperText={error && !Course ? error : ""}
+          />
 
-        <TextField 
-        id="outlined-basic" 
-        label="Course" 
-        variant="outlined" 
-        value={Course} 
-        onChange={handleCourseChange}
-        sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
-        error={error && !Course} 
-        helperText={error && !Course ? error : ""}
-        />
-
-            <TextField
+          <TextField
             id="outlined-basic"
             label="Year"
             variant="outlined"
             value={Year}
-            onChange={handleYearChange} 
-            sx={{ width: '20vw', mb: 5, fontSize: '24px' }}
+            onChange={handleYearChange}
+            sx={{ width: "20vw", mb: 5, fontSize: "24px" }}
             type="number"
           />
-          <Button
-            variant="contained"
-            type="submit"
-            onClick={handleAddStudent}
-          >
+          <Button variant="contained" type="submit" onClick={handleAddStudent}>
             Add Student
           </Button>
         </Grid>
       </Grid>
     </div>
   );
-};
+}
 
 export default AddStudent;
