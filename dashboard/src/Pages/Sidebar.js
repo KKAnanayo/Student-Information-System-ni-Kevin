@@ -9,7 +9,6 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
-<<<<<<< HEAD
 function Sidebar() {
   const storedData = localStorage.getItem('email') ? 'email' : localStorage.getItem('id') ? 'id' : null;
   useEffect(() => {
@@ -21,26 +20,6 @@ function Sidebar() {
     if (!(storedEmail || storedID) && !isLoginPage) {
       window.location.href = "/";
     } else if (localStorage == null) {
-=======
-function Sidebar(){
-    const storedData = localStorage.getItem('email') ? 'email' : localStorage.getItem('id') ? 'id' : null;
-    const navigate = useNavigate();
-    useEffect(() => {
-      if(storedID){
-        navigate('/student');
-      }
-    }, []);
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
-    const storedID = localStorage.getItem('id');
-    const isLoginPage = window.location.pathname === '/'; 
-    
-    
-
-    if (!(storedEmail || storedID) && !isLoginPage) {
-        window.location.href = "/";
-    }    else if (localStorage == null){
->>>>>>> 95a4aec2fb03376f476779510f0bf30ecdfdf9aa
       window.location.href = "/";
     } 
 
@@ -51,18 +30,16 @@ function Sidebar(){
     localStorage.removeItem('id');
 
 
-<<<<<<< HEAD
     window.location.href = "/";
   }
+  function EmailorID(){
+    if(localStorage = 'email'){
 
-=======
     }
     else if(localStorage = 'id'){
-  
+
     };
 }
->>>>>>> 95a4aec2fb03376f476779510f0bf30ecdfdf9aa
-
   const storedID = localStorage.getItem('id');
 
   return (
