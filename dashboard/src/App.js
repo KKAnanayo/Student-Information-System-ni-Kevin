@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
@@ -10,19 +9,6 @@ import Login from "./Pages/Login";
 import ManageStudent from "./Pages/ManageStudent";
 import Student from "./Pages/Student";
 import "./App.css";
-=======
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Dashboard from './Pages/Dashboard';
-import AddStudent from './Pages/AddStudent';
-import Sidebar from './Pages/Sidebar';
-import ViewStudents from './Pages/ViewStudents';
-import ViewUsers from './Pages/ViewUsers';
-import Login from './Pages/Login';
-import ManageStudent from './Pages/ManageStudent';
-import Student from './Pages/Student';
-import './App.css';
->>>>>>> 3d90110b20d167fe8901df3c8a073bd2ef479338
 
 function App() {
   return (
