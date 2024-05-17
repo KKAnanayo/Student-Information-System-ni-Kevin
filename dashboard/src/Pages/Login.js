@@ -19,6 +19,7 @@ function Login() {
   const [idErrorNone, setIDNone] = useState(false);
   const [passwordErrorWrong, setPasswordWrong] = useState(false);
 
+<<<<<<< HEAD
   const [users, setUsers] = useState([]);
   const [students, setStudents] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,6 +29,15 @@ function Login() {
   const [editMiddle, setEditMiddle] = useState("");
   const [editEmail, setEditEmail] = useState("");
   const [editPassword, setEditPassword] = useState("");
+=======
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const [editFirst, setEditFirst] = useState("");
+    const [editLast, setEditLast] = useState("");
+    const [editMiddle, setEditMiddle] = useState("");
+    const [editEmail, setEditEmail] = useState("");
+    const [editPassword, setEditPassword] = useState("");
+>>>>>>> 3d90110b20d167fe8901df3c8a073bd2ef479338
 
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
