@@ -8,6 +8,7 @@ import ViewUsers from "./Pages/ViewUsers";
 import Login from "./Pages/Login";
 import ManageStudent from "./Pages/ManageStudent";
 import Student from "./Pages/Student";
+import SearchTab from "./Pages/SearchTab";
 import "./App.css";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/managestudent" element={<ManageStudent />} />
           <Route path="/viewusers" element={<ViewUsers />} />
           <Route path="/student" element={<Student />} />
+          <Route path="/searchtab" element={<SearchTab />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<Login />} />
         </Routes>

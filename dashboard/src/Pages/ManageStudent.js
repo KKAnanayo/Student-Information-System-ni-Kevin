@@ -28,6 +28,7 @@ function ManageStudent() {
   const [editPassword, setEditPassword] = useState("");
   const [editCourse, setEditCourse] = useState("");
   const [editYear, setEditYear] = useState("");
+  const [editImg, setEditImg] = useState("");
 
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
@@ -36,6 +37,7 @@ function ManageStudent() {
   const [courseError, setCourseError] = useState(false);
   const [yearError, setYearError] = useState(false);
   const [passwordRequiredError, setPasswordRequiredError] = useState(false);
+
 
   useEffect(() => {
     fetchData();
@@ -52,9 +54,11 @@ function ManageStudent() {
       });
   };
 
+
   function handleAdd() {
     setModalOpen(true);
   }
+
 
   function handleEdit(student) {
     setEditedStudent(student);
@@ -65,8 +69,10 @@ function ManageStudent() {
     setEditPassword(student.Password);
     setEditCourse(student.Course);
     setEditYear(student.Year);
+    setEditImg(student.Img);
     setEditModalOpen(true);
   }
+
 
   function handleCloseModal() {
     setModalOpen(false);
@@ -87,6 +93,8 @@ function ManageStudent() {
     setEditCourse("");
     setEditYear("");
   }
+
+
 
   function handleAddStudent() {
     if (!editFirst) {
@@ -138,6 +146,7 @@ function ManageStudent() {
       Middle: editMiddle,
       Course: editCourse,
       Year: editYear,
+      Image: editImg,
     };
 
     axios
@@ -151,6 +160,7 @@ function ManageStudent() {
         setEditMiddle("");
         setEditCourse("");
         setEditYear("");
+        setEditImg("");
         setModalOpen(false);
         fetchData();
 
@@ -161,6 +171,8 @@ function ManageStudent() {
         setIDUniqueError(true);
       });
   }
+
+
 
   function handleSaveEdit() {
     if (!editFirst) {
@@ -256,6 +268,7 @@ function ManageStudent() {
           >
             Add Student Information
           </Typography>
+
           <div style={{ marginBottom: "16px" }} />
           <TextField
             variant="outlined"

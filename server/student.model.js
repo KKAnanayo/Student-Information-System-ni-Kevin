@@ -8,6 +8,7 @@ const StudentSchema = new mongoose.Schema({
     Middle: { type: String, required: true },
     Course: { type: String, required: true },
     Year: { type: String, required: true },
+    Image: {type: String}
 
 }, { collection: "student-data" });
 

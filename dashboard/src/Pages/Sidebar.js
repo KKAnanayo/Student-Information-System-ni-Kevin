@@ -52,6 +52,8 @@ function Sidebar() {
                 <br />
                 <Link to="/managestudent" style={{ justifyContent: 'left', display: 'flex', color: '#FFFFFF', textDecoration: 'none', pointerEvents: storedData === 'id' ? 'none' : 'auto', opacity: storedData === 'id' ? '0.5' : '1' }}><AccountCircle sx={{ fontSize: 30 }} />&nbsp;&nbsp;&nbsp;Manage Student</Link>
                 <br />
+                <Link to="/searchtab" style={{ justifyContent: 'left', display: 'flex', color: '#FFFFFF', textDecoration: 'none', pointerEvents: storedData === 'id' ? 'none' : 'auto', opacity: storedData === 'id' ? '0.5' : '1' }}><AccountCircle sx={{ fontSize: 30 }} />&nbsp;&nbsp;&nbsp;Search Tab</Link>
+                <br />
                 <Link onClick={handleLogout} style={{ justifyContent: 'left', display: 'flex', color: '#FFFFFF', textDecoration: 'none' }}><Logout sx={{ fontSize: 30 }} />&nbsp;&nbsp;&nbsp;Logout</Link>
             </div>
         </div>

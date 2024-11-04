@@ -39,6 +39,7 @@
         }
     });
 
+
     app.put("/editStudent", (req, res) => {
         const updateStudentData = req.body;
         let existingData = [];
@@ -110,6 +111,29 @@
             res.json(users);
         } catch (error) {
             console.error("Error fetching user data:", error);
+            res.status(500).json({ error: "Internal Server Error" });
+        }
+    });
+
+    app.get("/viewManageStudent/:query", async (req, res) => {
+        const searchQuery = req.params.query;
+    
+        // Set up the search condition for ID or last name
+        const searchCondition = isNaN(searchQuery)
+            ? { Last: { $regex: searchQuery, $options: "i" } } // Case-insensitive search by Last name
+            : { ID: searchQuery }; // Exact match search by ID
+    
+        console.log("Search Condition:", searchCondition); // Log search condition for debugging
+    
+        try {
+            const students = await Student.find(searchCondition);
+            if (students.length > 0) {
+                res.json(students);
+            } else {
+                res.status(404).json({ error: "Student not found" });
+            }
+        } catch (error) {
+            console.error("Error fetching student data:", error);
             res.status(500).json({ error: "Internal Server Error" });
         }
     });
